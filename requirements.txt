@@ -1,0 +1,4 @@
+sh
+python-heatclient
+python-novaclient
+extras
