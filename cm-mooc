@@ -6,7 +6,7 @@
 #
 # all other code based on Gregors early version of cloudmesh
 #
-from blessings import Terminal
+#from blessings import Terminal
 import textwrap
 import os
 import sys
@@ -25,7 +25,8 @@ from sh import fgrep
 # Terminal related methods
 ######################################################################
 
-
+"""
+# blessings not properly installed on india
 term = Terminal()
 (terminal_height, terminal_width) = os.popen(
     'stty size', 'r').read().split()
@@ -49,6 +50,8 @@ print _tline("second")
 
 print
 sys.exit()
+"""
+
 
 def logo():
     banner = textwrap.dedent("""
@@ -184,7 +187,7 @@ def get_ip_from_stack():
 def login():
     print "login vm ..."
     ip = get_ip_from_stack()
-    os.system("ssh -i %s %s" % (os.path.expanduser("~/%s" % keyname), "root@%s" % ip))
+    os.system("ssh -X -i %s %s" % (os.path.expanduser("~/%s" % keyname), "root@%s" % ip))
 
 
 def get_first_stack_vm_id():
