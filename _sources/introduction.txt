@@ -29,9 +29,9 @@ Create a FG Portal Account
 **Overview:** 
 This lesson explains how to create a FutureGrid portal account, which is the first step in gaining access to the FutureGrid testbed. 
 
-.. sidebar:: |info-image| Resources
+.. sidebar:: |file-image| Resources
    
-   * `FutureGrid Portal <https://portal.futuregrid.org/`_
+   * `FutureGrid Portal <https://portal.futuregrid.org/>`_
    * `FutureGrid Manual: Create a portal account <http://manual.futuregrid.org/account.html#create-a-portal-account>`_
 
 Create a Portal account
@@ -95,7 +95,7 @@ Upload an OpenId
 ----------------------------------------------------------------------
 Overview: This lesson explains how to upload and use OpenId to easily log into the FutureGrid portal
 
-.. sidebar:: |info-image| Resources 
+.. sidebar:: |file-image| Resources 
 
    * `FutureGrid Manual: Upload an OpenID <http://manual.futuregrid.org/account.html#upload-an-openid>`_
 
@@ -131,7 +131,7 @@ To upload the chosen public key:
 If you are not familiar with ssh keys we have provided more indepth information next. It covers 
 in detail how to generate SSH Keys and upload into your portal account.
 
-.. sidebar:: |info-image| Resources 
+.. sidebar:: |file-image| Resources 
    
    * `FutureGrid Manual: Using SSH <http://manual.futuregrid.org/security.html#s-using-ssh>`_
    * `OpenSSH Manual <http://openssh.com/manual.html>`_
@@ -465,7 +465,6 @@ NOTE:
 * (1) If you are not able to view these directories, please logout and wait for some time before logging again. As mentioned before it would take some time to load the files to VM. 
 
 
-
-
-				      
 .. |info-image| image:: images/glyphicons_195_circle_info.png 
+
+.. |file-image| image:: images/glyphicons_036_file.png
