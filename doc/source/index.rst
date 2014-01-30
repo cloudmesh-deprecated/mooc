@@ -10,18 +10,22 @@
 
    Gregor von Laszewski,
    Jonatahn Klingensmith,
-   Sidd Maini
-
+   Fugang Wang,
+   Allen Streib,
+   Sidd Maini,
+   Abhilash Koppula,
+   Yishi Yang,
+   Eric Tsao
 
    If your name is missing please let us know and we will add it.
 
-**PART I. FutureGrid**
+**Unit 7: FutureGrid for Big Data Applications and Analytics Course**
 
 .. toctree::
    :numbered:
    :maxdepth: -1
 
-   futuregrid
+   introduction
 
 .. |image0| image:: /images/fg-logo-md.png
 
