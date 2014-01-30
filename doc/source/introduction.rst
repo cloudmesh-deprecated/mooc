@@ -336,16 +336,51 @@ Next you can start the MOOC shell with the command::
 
    cm-mooc
 
-This will bring up a menu with a number of useful commands to manage the vm for this lesson.
+This will bring up a menu with a number of useful commands to manage the vm for this lesson. You will see something like this::
 
-VM Management
+   ./cm-mooc 
+
+		 FutureGrid - Cloud Mesh MOOC Shell
+   ------------------------------------------------------
+      ____ _                 _   __  __           _
+     / ___| | ___  _   _  __| | |  \/  | ___  ___| |__
+    | |   | |/ _ \| | | |/ _` | | |\/| |/ _ \/ __| '_ \ 
+    | |___| | (_) | |_| | (_| | | |  | |  __/\__ \ | | |
+     \____|_|\___/ \__,_|\__,_| |_|  |_|\___||___/_| |_|
+   ======================================================
+
+   Cloudmesh MOOC FG380 Menu
+   ----------------------------------------------------------------------
+   user  : username
+   tenant: fg380
+   key   : username-key
+   ----------------------------------------------------------------------
+
+       == Keys ==================     == VM ====================
+
+	  1) upload                      3) start  
+	  2) delete                      4) suspend 
+					 5) resume 
+       == Login =================        6) list 
+					 7) delete
+	  9) login 
+
+       == Quit =================      == IP =====================
+
+	  q) Quit cm-mooc               8) list public ip
+
+
+You can now press the numbers and an acction according to the description takes place. Please watch the response carefully. The menu can be left with the key ``q``
+
+
+Key Management
 ----------------------------------------------------------------------
 
-The first time you must add a key to OpenStack that will be used to log into the virtual machine. To do so we are creating a key for you and place it in the home directory with. The file is called username-key, where username is your username in india. The username can be displayed also with the command::
+The first time you must add a key to OpenStack that will be used to log into the virtual machine. Please press ``1`` on your keyboard. This will create a key for you and place it in the home directory. The key is called username-key, where username is your username in india. The username can be displayed also with the command::
 
   echo $USER
 
-If you execute the command twice it will warn you that you already have uploaded and created a key. If for some reason you need to recreate the key, you will need to first delete is and than call the upload command again. To show you that the key is indeed uploaded to openstack the cm-mooc command will show you alse the list of keys on the terminal. YOu will see somthing like this::
+If you execute the command twice it will warn you that you already have uploaded and created a key. If for some reason you need to recreate the key, you will need to first delete is and than call the upload command again. To show you that the key is indeed uploaded to openstack the cm-mooc command will show you alse the list of keys on the terminal. You will see somthing like this::
 
   +--------------+-------------------------------------------------+
   | Name         | Fingerprint                                     |
@@ -354,21 +389,23 @@ If you execute the command twice it will warn you that you already have uploaded
   +--------------+-------------------------------------------------+
 
 
-Manageing the Course Image
+VM Management
 ----------------------------------------------------------------------
 
 Next you need to boot the image that you will use for running IPython.
 
-This is achieved by pressing the number *1* 
+This is achieved by pressing the number ``3`` on your keyboard 
 
-It will take some time till the image is uploaded. To see the status, you can invoke the list function with the command ?
+It will take some time till the image is uploaded. To see the status, you can invoke the list function with the key ``6``.
 
-Sometimes you may get an error or the start will take a long time. Be not alarmed about this. Openstack resources are limited, and sometimes ther may just not be eonugh resources to start another VM. Especially if other users start VMS that they may not use. Thus we ask you that once you are done with your activities to suspend the VM and when you come back to resume it. For this reason we have introduced commands for it as you can see in the menu.
+Sometimes you may get an error or the start will take a long time. Be not alarmed about this. Openstack resources are limited, and sometimes ther may just not be eonugh resources to start another VM. Especially if other users start VMS that they may not use. Thus we ask you that once you are done with your activities to suspend with ``4`` the VM and when you come back to resume it with ``5``. 
 
 As it will take some time to get everything activated you need to wait a moment before you can proceed.
 
-The image wil be ready when the login command works and you can login into the VM. If it does not work, you may want to wait a minute or two and try again.
+The image wil be ready when the login command works and you can login into the VM. You can login into the image with ``9``. If it does not work, you may want to wait a minute or two and try again.
  
+In case the shell gets stuck and you like to interrup you can user ``CTRL-C`` However note that this doe snot stop a command that is already started and runs in the background. Sometimes you may want to cancel a login which you can do this way.
+
 Accessing IPython and running Python examples
 ----------------------------------------------------------------------
 Overview: This lesson discusses the use of IPython, how to open the existing notebooks and modification and creation of new files. 

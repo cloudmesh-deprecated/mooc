@@ -247,28 +247,18 @@ while cont:
 
     print """
 
-    Keys
-    ==========================
-    1) upload 
-    2) delete
+    == Keys ==================     == VM ====================
 
-    VM
-    ==========================
-    3) start  
-    4) suspend 
-    5) resume 
-    6) list 
-    7) delete
-
-    IP
-    ============================
-    8) list public ip
-
-    LOGIN
-    =============================
-    9) login 
-
-    q) Quit
+       1) upload                      3) start  
+       2) delete                      4) suspend 
+                                      5) resume 
+    == Login =================        6) list 
+                                      7) delete
+       9) login 
+                                   
+    == Quit =================      == IP =====================
+                                      
+       q) Quit cm-mooc               8) list public ip
     """ 
     answer=getcharater()
 
