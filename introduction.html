@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>1. UNIT Overview &mdash; Cloudmesh 0.1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-3.0.0/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-3.0.0/css/bootstrap-theme.min.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="_static/js/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-3.0.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
+    <link rel="top" title="Cloudmesh 0.1 documentation" href="index.html" />
+    <link rel="prev" title="Cloudmesh MOOC Shell" href="index.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body>
+
+  <div id="navbar" class="navbar navbar-inverse navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="index.html"><img src="_static/fg-logo-white-24x36.png">
+          Cloudmesh MOOC Shell</a>
+        <span class="navbar-text navbar-version pull-left"><b>0.1</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            <li class="divider-vertical"></li>
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a href="index.html"
+     class="dropdown-toggle"
+     data-toggle="dropdown">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+    ><ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="">1. UNIT Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#accessing-futuregrid">2. Accessing FutureGrid</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#create-a-fg-portal-account">2.1. Create a FG Portal Account</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#create-a-portal-account">2.2. Create a Portal account</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#upload-an-openid">2.3. Upload an OpenId</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#upload-ssh-key">2.4. Upload SSH Key</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#using-ssh">2.5. Using SSH</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#generate-a-ssh-key">2.5.1. Generate a SSH key</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#id1">2.6. Generate a SSH key</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#upload-the-key-to-the-futuregrid-portal">2.6.1. Upload the key to the FutureGrid Portal</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#joining-the-fg-project-for-the-mooc">2.6.2. Joining the FG Project for the MOOC</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#using-futuregrid">3. Using FutureGrid</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#login-to-a-futuregrid">3.1. Login to a FutureGrid</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#activating-the-mooc-tools">3.2. Activating the MOOC tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#starting-the-mooc-shell">3.3. Starting the MOOC Shell</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#key-management">3.4. Key Management</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#vm-management">3.5. VM Management</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#accessing-ipython-and-running-python-examples">3.6. Accessing IPython and running Python examples</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"><ul>
+<li><a class="reference internal" href="#">1. UNIT Overview</a></li>
+<li><a class="reference internal" href="#accessing-futuregrid">2. Accessing FutureGrid</a><ul>
+<li><a class="reference internal" href="#create-a-fg-portal-account">2.1. Create a FG Portal Account</a></li>
+<li><a class="reference internal" href="#create-a-portal-account">2.2. Create a Portal account</a></li>
+<li><a class="reference internal" href="#upload-an-openid">2.3. Upload an OpenId</a></li>
+<li><a class="reference internal" href="#upload-ssh-key">2.4. Upload SSH Key</a></li>
+<li><a class="reference internal" href="#using-ssh">2.5. Using SSH</a><ul>
+<li><a class="reference internal" href="#generate-a-ssh-key">2.5.1. Generate a SSH key</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id1">2.6. Generate a SSH key</a><ul>
+<li><a class="reference internal" href="#upload-the-key-to-the-futuregrid-portal">2.6.1. Upload the key to the FutureGrid Portal</a></li>
+<li><a class="reference internal" href="#joining-the-fg-project-for-the-mooc">2.6.2. Joining the FG Project for the MOOC</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#using-futuregrid">3. Using FutureGrid</a><ul>
+<li><a class="reference internal" href="#login-to-a-futuregrid">3.1. Login to a FutureGrid</a></li>
+<li><a class="reference internal" href="#activating-the-mooc-tools">3.2. Activating the MOOC tools</a></li>
+<li><a class="reference internal" href="#starting-the-mooc-shell">3.3. Starting the MOOC Shell</a></li>
+<li><a class="reference internal" href="#key-management">3.4. Key Management</a></li>
+<li><a class="reference internal" href="#vm-management">3.5. VM Management</a></li>
+<li><a class="reference internal" href="#accessing-ipython-and-running-python-examples">3.6. Accessing IPython and running Python examples</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="index.html" title="Previous Chapter: Cloudmesh MOOC Shell"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm">&laquo; Cloudmesh MOOC S...</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="_sources/introduction.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      
+  <div class="section" id="unit-overview">
+<h1>1. UNIT Overview<a class="headerlink" href="#unit-overview" title="Permalink to this headline">¶</a></h1>
+<p>This section has two goals. It is meant to</p>
+<ul class="simple">
+<li><ol class="first loweralpha">
+<li>give you an introduction to Futuregrid, and</li>
+</ol>
+</li>
+<li><ol class="first loweralpha" start="2">
+<li>how to use FutureGrid for the Big Data Course.</li>
+</ol>
+</li>
+</ul>
+<p>As part of this we will present you with information on how to  create a FutureGrid Account, Uploading OpenId and SSH Key and manage virtual machines specifically targeting an ipython and Java environment that we will use as part of this lesson.</p>
+</div>
+<div class="section" id="accessing-futuregrid">
+<h1>2. Accessing FutureGrid<a class="headerlink" href="#accessing-futuregrid" title="Permalink to this headline">¶</a></h1>
+<p>FutureGrid is a project led by Indiana University and funded by the National Science Foundation (NSF) to develop a high-performance grid test bed that lets scientists collaboratively develop and test innovative approaches to parallel, grid, and cloud computing. The ultimate goal is to build a system that helps researchers identify cyberinfrastructure that best suits their scientific needs.
+The FutureGrid test bed is composed of a high-speed network connected to distributed clusters of high-performance computers, and is linked to the Extreme Science and Engineering Discovery Environment (XSEDE). FutureGrid employs virtualization technology that lets the test bed support a wide range of operating systems.</p>
+<p>Futuregrid has an extensive set of manual pages that is provides the most up to date information. We recommend that you visit the manual pages and obtain a further overview of how to use the many services that FutureGrid offered. However, for this lesson, the information provided here will be suffient.</p>
+<p>You can find the FutureGrid Manual at</p>
+<ul class="simple">
+<li><a class="reference external" href="http://manual.futuregrid.org">http://manual.futuregrid.org</a></li>
+</ul>
+<p>Much of the information presented here is directly copied from that manaul. To indicate where the information is comming from we are adding to each lesson a resource section, so that you also can visit the original page.</p>
+<div class="section" id="create-a-fg-portal-account">
+<h2>2.1. Create a FG Portal Account<a class="headerlink" href="#create-a-fg-portal-account" title="Permalink to this headline">¶</a></h2>
+<p><strong>Overview:</strong>
+This lesson explains how to create a FutureGrid portal account, which is the first step in gaining access to the FutureGrid testbed.</p>
+<div class="sidebar">
+<p class="first sidebar-title"><img alt="info-image" src="_images/glyphicons_195_circle_info.png" /> Resources</p>
+<ul class="last simple">
+<li><a href="#id2"><span class="problematic" id="id3">`FutureGrid Portal &lt;https://portal.futuregrid.org/`_</span></a></li>
+<li><a class="reference external" href="http://manual.futuregrid.org/account.html#create-a-portal-account">FutureGrid Manual: Create a portal account</a></li>
+</ul>
+</div>
+</div>
+<div class="section" id="create-a-portal-account">
+<h2>2.2. Create a Portal account<a class="headerlink" href="#create-a-portal-account" title="Permalink to this headline">¶</a></h2>
+<p>In order to utilize <strong>any</strong> FutureGrid resource, you must possess a
+FutureGrid <strong>portal account</strong>. Thus, <em>apply for your portal
+account</em> before you attempt anything else. This account is used to
+gather some information that we will use in the next steps. You must
+make sure that the information is complete before you proceed to the
+second step.  FutureGrid performs basic verification of the information
+you provide when creating an account, so it may take a little while
+before your account is approved. Once you have a portal account, please
+proceed.</p>
+<p>Please note that you cannot access FutureGrid resources until you
+complete the next steps.</p>
+<div class="sidebar">
+<p class="first sidebar-title"><img alt="info-image" src="_images/glyphicons_195_circle_info.png" /> Hint</p>
+<p class="last">It may take a day or two to get a portal account. Portal
+accounts will not be created over the weekend.</p>
+</div>
+<p>Here are a few tips that make it easy for you</p>
+<ul class="simple">
+<li>On the portal&#8217;s main page at <a class="reference external" href="https://portal.futuregrid.org">https://portal.futuregrid.org</a>
+appears
+a <em class="menuselection">Portal ‣ Register</em> <a class="reference external" href="https://portal.futuregrid.org/user/register">link</a>.</li>
+<li>Following you will be able to <strong>Create a new account</strong> on the
+portal.</li>
+<li>Fill in <strong>ALL</strong> fields as much as you can.</li>
+<li>Note that fields with <strong>*</strong> are mandatory</li>
+<li>It is important that you specify your address information completely.</li>
+<li>If you are a graduate or undergraduate student please fill out your
+advisor&#8217;s contact information in the field specially dedicated for it.
+If he has a FutureGrid Portal name, please include his portal name
+if you know it.</li>
+<li>If you have an e-mail address from your institution, we ask that you
+use this address instead of one from gmail, hotmail, or other e-mail
+services that we cannot trace back to your name or institution.</li>
+<li>Usage of all non institutional addresses will prolong the application
+process.</li>
+<li>Please note that creating a portal account does not give you access
+to any FutureGrid resources.</li>
+<li>Please remember that checking your information will take time. Thus
+we recommend that you wait till you get a message that tells you that
+your portal account has been approved. Then continue to The next
+step. We are not conducting any portal approval outside of 10am-4pm
+EST. If there are no problems verifying your information your
+approval will take 1-2 days; if we have problems verifying your
+data or something else is not right your approval will be
+delayed. If you appear to be a spammer we will not notify you.</li>
+<li>If you are teaching a class, we have some special
+instructions for you in Section <em class="xref std std-ref">s-account-class</em>.</li>
+<li>After your account has been approved, you can correct the
+information as part of the portal account <a class="reference external" href="https://portal.futuregrid.org/my">User Profile
+Management</a>.</li>
+</ul>
+</div>
+<div class="section" id="upload-an-openid">
+<h2>2.3. Upload an OpenId<a class="headerlink" href="#upload-an-openid" title="Permalink to this headline">¶</a></h2>
+<p>Overview: This lesson explains how to upload and use OpenId to easily log into the FutureGrid portal</p>
+<div class="sidebar">
+<p class="first sidebar-title"><img alt="info-image" src="_images/glyphicons_195_circle_info.png" /> Resources</p>
+<ul class="last simple">
+<li><a class="reference external" href="http://manual.futuregrid.org/account.html#upload-an-openid">FutureGrid Manual: Upload an OpenID</a></li>
+</ul>
+</div>
+<p>Often users may not remember the password or username of the FG
+portal. However, they may have an easier time to remember their openid
+from for example google. It is possible to use your openid account and
+register it once you gain access to the portal. Please visit your</p>
+<ul class="simple">
+<li><a class="reference external" href="https://portal.futuregrid.org/my/openid">OpenID Page</a></li>
+</ul>
+<p>to add your favorite OpenID. For example, to add your Google OpenId you simply
+click on the Google icon.</p>
+</div>
+<div class="section" id="upload-ssh-key">
+<h2>2.4. Upload SSH Key<a class="headerlink" href="#upload-ssh-key" title="Permalink to this headline">¶</a></h2>
+<p>Overview: This lesson explains how to upload and use a SSH key to log to the FutureGrid resources.</p>
+<p>In order to be able to log into the started VMs, among other purposes,
+you need to provide FG with a secure-shell (ssh) public key. If you are
+already a frequent user of ssh, and have a private and public key pair,
+it is perfectly reasonable to provide your public key. It&#8217;s <em>public</em>,
+after all.</p>
+<p>To upload the chosen public key:</p>
+<ol class="arabic simple">
+<li>Copy your public identity into your system clipboard.</li>
+<li>Visit the <a class="reference external" href="https://portal.futuregrid.org/my/ssh-keys">ssh-key panel of your account</a>.</li>
+<li>Click the link that says Add a public key.</li>
+</ol>
+<p>If you are not familiar with ssh keys we have provided more indepth information next. It covers
+in detail how to generate SSH Keys and upload into your portal account.</p>
+<div class="sidebar">
+<p class="first sidebar-title"><img alt="info-image" src="_images/glyphicons_195_circle_info.png" /> Resources</p>
+<ul class="last simple">
+<li><a class="reference external" href="http://manual.futuregrid.org/security.html#s-using-ssh">FutureGrid Manual: Using SSH</a></li>
+<li><a class="reference external" href="http://openssh.com/manual.html">OpenSSH Manual</a></li>
+</ul>
+</div>
+</div>
+<div class="section" id="using-ssh">
+<h2>2.5. Using SSH<a class="headerlink" href="#using-ssh" title="Permalink to this headline">¶</a></h2>
+<p>SSH functionality by default available in Linux and Mac terminals. However in windows you need to install either Cygwin or Putty for the SSH functionality. Instructions for installing Cygwin is provided at within the more detailed
+<a class="reference external" href="http://manual.futuregrid.org/security.html#id1">FutureGrid manual in the security section</a></p>
+<div class="section" id="generate-a-ssh-key">
+<h3>2.5.1. Generate a SSH key<a class="headerlink" href="#generate-a-ssh-key" title="Permalink to this headline">¶</a></h3>
+</div>
+</div>
+<div class="section" id="id1">
+<h2>2.6. Generate a SSH key<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<div class="sidebar">
+<p class="first sidebar-title"><img alt="info-image" src="_images/glyphicons_195_circle_info.png" /> Hint</p>
+<p class="last">In case you do not want to type in your password everytime,
+please learn about ssh-agent and ssh-add.</p>
+</div>
+<p>First we must generate a ssh key with the tool <a class="reference external" href="http://linux.die.net/man/1/ssh-keygen">ssh-keygen</a>. This program is commonly
+available on most UNIX systems (this includes Cygwin if you installed
+the ssh module or use our pre-generated cygwin executable). It will
+ask you for the location and name of the new key. It will also ask you
+for a passphrase, which you <strong>MUST</strong> provide. Some teachers and teaching
+assistants advice you to not use passphrases. This is <strong>WRONG</strong> as it
+allows someone that gains access to your computer to also gain access to
+all resources that have the public key. Also, please use a strong passphrase
+to protect it appropriately.</p>
+<p>In case you already have a ssh key in your machine, you can reuse it and skip this whole section.</p>
+<p>To generate the key, please type:</p>
+<p>Example:</p>
+<div class="highlight-python"><pre>ssh-keygen -t rsa -C localname@indiana.edu</pre>
+</div>
+<p>This command requires the interaction of the user. The first question is:</p>
+<div class="highlight-python"><pre>Enter file in which to save the key (/home/localname/.ssh/id_rsa):</pre>
+</div>
+<p>We recommend using the default location ~/.ssh/ and the default name id_rsa.
+To do so, just press the enter key.</p>
+<div class="sidebar">
+<p class="first sidebar-title"><img alt="info-image" src="_images/glyphicons_195_circle_info.png" /> Hint</p>
+<p class="last">Please note that your <em>localname</em> is the username on
+your computer and may be different from your <em>portalusername</em>.</p>
+</div>
+<p>The second and third question is to protect your ssh key with a
+passphrase. This passphrase will protect your key because you need to
+type it when you want to use it. Thus, you can either type a
+passphrase or press enter to leave it without passphrase. To avoid
+security problems, you <strong>MUST</strong> chose a passphrase. Make sure to not
+just type return for an empty passphrase:</p>
+<div class="highlight-python"><pre>Enter passphrase (empty for no passphrase):</pre>
+</div>
+<p>and:</p>
+<div class="highlight-python"><pre>Enter same passphrase again:</pre>
+</div>
+<p>If executed correctly, you will see some output similar to:</p>
+<div class="highlight-python"><pre>Generating public/private rsa key pair.
+Enter file in which to save the key (/home/localname/.ssh/id_rsa):
+Enter passphrase (empty for no passphrase):
+Enter same passphrase again:
+Your identification has been saved in /home/localname/.ssh/id_rsa.
+Your public key has been saved in /home/localname/.ssh/id_rsa.pub.
+The key fingerprint is:
+34:87:67:ea:c2:49:ee:c2:81:d2:10:84:b1:3e:05:59 localname@indiana.edu
+The key's random art image is::
+
++--[ RSA 2048]----+
+|.+...Eo= .       |
+| ..=.o + o +o    |
+|O.  o o +.o      |
+| = .   . .       |
++-----------------+</pre>
+</div>
+<p>Once, you have generated your key, you should have them in the .ssh
+directory. You can check it by</p>
+<div class="highlight-python"><pre>$ cat ~/.ssh/id_rsa.pub</pre>
+</div>
+<p>If everything is normal, you will see something like:</p>
+<div class="highlight-python"><pre>ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCXJH2iG2FMHqC6T/U7uB8kt6KlRh4kUOjgw9sc4Uu+Uwe/EwD0wk6CBQMB+HKb9upvCRW/851UyRUagtlhgythkoamyi0VvhTVZhj61pTdhyl1t8hlkoL19JVnVBPP5kIN3wVyNAJjYBrAUNW4dXKXtmfkXp98T3OW4mxAtTH434MaT+QcPTcxims/hwsUeDAVKZY7UgZhEbiExxkejtnRBHTipi0W03W05TOUGRW7EuKf/4ftNVPilCO4DpfY44NFG1xPwHeimUk+t9h48pBQj16FrUCp0rS02Pj+4/9dNeS1kmNJu5ZYS8HVRhvuoTXuAY/UVcynEPUegkp+qYnR user@myemail.edu</pre>
+</div>
+<div class="section" id="upload-the-key-to-the-futuregrid-portal">
+<h3>2.6.1. Upload the key to the FutureGrid Portal<a class="headerlink" href="#upload-the-key-to-the-futuregrid-portal" title="Permalink to this headline">¶</a></h3>
+<div class="sidebar">
+<p class="first sidebar-title"><img alt="info-image" src="_images/glyphicons_195_circle_info.png" /> Resources</p>
+<ul class="last simple">
+<li><a class="reference external" href="http://manual.futuregrid.org/account.html#upload-a-ssh-public-key">FutureGrid Manual: Upload a ssh public key</a></li>
+</ul>
+</div>
+<p>Next you need to upload the key to the portal. You must be logged into the portal to do so
+*       Step 1: Log into the portal
+*       Step 2: Click in the “ssh key” button. or go directly to <a class="reference external" href="https://portal.futuregrid.org/my/ssh-keys">https://portal.futuregrid.org/my/ssh-keys</a>
+*       Step 3: Click in the “add a public key” link.
+*       Step 4: Paste your ssh key into the box marked Key. Use a text editor to open the “id_rsa.pub”. Copy the entire contents of this file into the ssh key field as part of your profile information. Many errors are introduced by users in this step as they do not paste and copy correctly
+*       Step 5 : Click the submit button. IMPORTANT: Leave the Title field blank. Make sure that when you paste your key, it does not contain newlines or carriage returns that may have been introduced by incorrect pasting and copying. If so, please remove them.</p>
+<p>At this point you have uploaded your key. However you will still need to wait till all accounts have been set up to use the key, or if you did not have an account till it has been created by an administrator. Please, check your email for further updates. You can also refresh this page and see if the boxes in your account status information are all green. Then you can continue</p>
+</div>
+<div class="section" id="joining-the-fg-project-for-the-mooc">
+<h3>2.6.2. Joining the FG Project for the MOOC<a class="headerlink" href="#joining-the-fg-project-for-the-mooc" title="Permalink to this headline">¶</a></h3>
+<p>Overview: This lesson explains how to join a FutureGrid project</p>
+<div class="sidebar">
+<p class="first sidebar-title"><img alt="info-image" src="_images/glyphicons_195_circle_info.png" /> Resources</p>
+<ul class="last simple">
+<li><a class="reference external" href="https://portal.futuregrid.org/projects/380">FutureGrid Project 380</a></li>
+</ul>
+</div>
+<p>Upon successful creation of your account, you will be able to join the existing FutureGrid projects. For this course, you have to join the Big Data Course project. The project is located at</p>
+<ul class="simple">
+<li><a class="reference external" href="https://portal.futuregrid.org/projects/380">https://portal.futuregrid.org/projects/380</a></li>
+</ul>
+<p>If you are interested in other projects on FutureGrid you can find a list of them at</p>
+<ul class="simple">
+<li><a class="reference external" href="https://portal.futuregrid.org/projects/all">https://portal.futuregrid.org/projects/all</a></li>
+</ul>
+<p>Our MOOC project has the title “Big Data Application and Analytics”. In order for you to be added to the project, you have to
+click the link “Join this project” in the right side of the project details page. After verifying your account and course enrollment details, you will be granted the permission by the course administrator to join the project.</p>
+<p>Please note that the account activation takes a usually a working day. Not that join requests over a weekend or holiday will be handled at the next buisiness day.</p>
+</div>
+</div>
+</div>
+<div class="section" id="using-futuregrid">
+<h1>3. Using FutureGrid<a class="headerlink" href="#using-futuregrid" title="Permalink to this headline">¶</a></h1>
+<p>Overview: This lesson explains our customized shell that will simplify management of the VMs for this upcomming lessons. The VM will start an IPython IPython Notebook.</p>
+<div class="section" id="login-to-a-futuregrid">
+<h2>3.1. Login to a FutureGrid<a class="headerlink" href="#login-to-a-futuregrid" title="Permalink to this headline">¶</a></h2>
+<p>First you need to login to the FutureGrid machine called india. This is done with the following command:</p>
+<div class="highlight-python"><pre>$ ssh -X username@india.futuregrid.org</pre>
+</div>
+<p>Note: Your username will be the FutuerGrid portal name.</p>
+<p>If your connection is successful, you should see output similar to below:</p>
+<div class="highlight-python"><pre>Last login: Wed Jan  8 10:57:32 2014 from 156-56-93-235.dhcp-bl.indiana.edu
+-------------------------------------------------------------
+
+Please do not run large jobs on the login nodes.  Large jobs are subject
+to termination without warning.
+
+Jobs run outside the job scheduler are subject to termination without
+notice.
+
+------------------------------------------------------------
+
+Welcome to India.FutureGrid.Org
+
+============================================================================
+torque/2.5.5 version 2.5.5 loaded
+moab version 5.4.0 loaded</pre>
+</div>
+<div class="sidebar">
+<p class="first sidebar-title"><img alt="info-image" src="_images/glyphicons_195_circle_info.png" /> Hint</p>
+<p>All the programs of the course have graphs as output and to view the graphs use –X option while logging</p>
+<ul class="last">
+<li><p class="first">Unix Users:</p>
+<div class="highlight-python"><pre>$ ssh –X username@india.futuregrid.org</pre>
+</div>
+</li>
+<li><p class="first">Windows Users:</p>
+<div class="highlight-python"><pre>$ startxwin
+$ ssh –X username@india.futuregrid.org</pre>
+</div>
+</li>
+</ul>
+</div>
+<p>For more information on cygwin we also recommend the following manuals (a) <a class="reference external" href="https://www.cs.virginia.edu/~csadmin/wiki/index.php/Using_Cygwin_for_X11_Forwarding">Using Cygwin for X11 Forwarding</a>
+(b)  <a href="#id4"><span class="problematic" id="id5">`Cygwin Manual&lt;http://rcc.its.psu.edu/user_guides/remote_display/cygwin/&gt;`_</span></a></p>
+</div>
+<div class="section" id="activating-the-mooc-tools">
+<h2>3.2. Activating the MOOC tools<a class="headerlink" href="#activating-the-mooc-tools" title="Permalink to this headline">¶</a></h2>
+<p>We have created for you a simple way of activating some default environment that will help you to more easily interact with the virtual machines that will be hosted on FutureGrid&#8217;s Openstack infrastructure. Insead of overwhelming you with details of how to manage the VM with lengthy OpenStack shell commands, we are using for this lesson a customized shell environment that allows you via a menu to interact with the system easily. After every log into india you need to start every time the command:</p>
+<div class="highlight-python"><pre>module load fg380</pre>
+</div>
+<p>If you like to automatically do this you can also edit your ~/.bashrc file and add the above command at the end of that file. This way you do not have to remember it.</p>
+</div>
+<div class="section" id="starting-the-mooc-shell">
+<h2>3.3. Starting the MOOC Shell<a class="headerlink" href="#starting-the-mooc-shell" title="Permalink to this headline">¶</a></h2>
+<p>Next you can start the MOOC shell with the command:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">cm</span><span class="o">-</span><span class="n">mooc</span>
+</pre></div>
+</div>
+<p>This will bring up a menu with a number of useful commands to manage the vm for this lesson. You will see something like this:</p>
+<div class="highlight-python"><pre>./cm-mooc
+
+              FutureGrid - Cloud Mesh MOOC Shell
+------------------------------------------------------
+   ____ _                 _   __  __           _
+  / ___| | ___  _   _  __| | |  \/  | ___  ___| |__
+ | |   | |/ _ \| | | |/ _` | | |\/| |/ _ \/ __| '_ \
+ | |___| | (_) | |_| | (_| | | |  | |  __/\__ \ | | |
+  \____|_|\___/ \__,_|\__,_| |_|  |_|\___||___/_| |_|
+======================================================
+
+Cloudmesh MOOC FG380 Menu
+----------------------------------------------------------------------
+user  : username
+tenant: fg380
+key   : username-key
+----------------------------------------------------------------------
+
+    == Keys ==================     == VM ====================
+
+       1) upload                      3) start
+       2) delete                      4) suspend
+                                      5) resume
+    == Login =================        6) list
+                                      7) delete
+       9) login
+
+    == Quit =================      == IP =====================
+
+       q) Quit cm-mooc               8) list public ip</pre>
+</div>
+<p>You can now press the numbers and an acction according to the description takes place. Please watch the response carefully. The menu can be left with the key <tt class="docutils literal"><span class="pre">q</span></tt></p>
+</div>
+<div class="section" id="key-management">
+<h2>3.4. Key Management<a class="headerlink" href="#key-management" title="Permalink to this headline">¶</a></h2>
+<p>The first time you must add a key to OpenStack that will be used to log into the virtual machine. Please press <tt class="docutils literal"><span class="pre">1</span></tt> on your keyboard. This will create a key for you and place it in the home directory. The key is called username-key, where username is your username in india. The username can be displayed also with the command:</p>
+<div class="highlight-python"><pre>echo $USER</pre>
+</div>
+<p>If you execute the command twice it will warn you that you already have uploaded and created a key. If for some reason you need to recreate the key, you will need to first delete is and than call the upload command again. To show you that the key is indeed uploaded to openstack the cm-mooc command will show you alse the list of keys on the terminal. You will see somthing like this:</p>
+<div class="highlight-python"><pre>+--------------+-------------------------------------------------+
+| Name         | Fingerprint                                     |
++--------------+-------------------------------------------------+
+| USERNAME-key | d8:bb:f0:c5:bf:ba:7d:22:51:7b:25:15:fe:e4:b9:7a |
++--------------+-------------------------------------------------+</pre>
+</div>
+</div>
+<div class="section" id="vm-management">
+<h2>3.5. VM Management<a class="headerlink" href="#vm-management" title="Permalink to this headline">¶</a></h2>
+<p>Next you need to boot the image that you will use for running IPython.</p>
+<p>This is achieved by pressing the number <tt class="docutils literal"><span class="pre">3</span></tt> on your keyboard</p>
+<p>It will take some time till the image is uploaded. To see the status, you can invoke the list function with the key <tt class="docutils literal"><span class="pre">6</span></tt>.</p>
+<p>Sometimes you may get an error or the start will take a long time. Be not alarmed about this. Openstack resources are limited, and sometimes ther may just not be eonugh resources to start another VM. Especially if other users start VMS that they may not use. Thus we ask you that once you are done with your activities to suspend with <tt class="docutils literal"><span class="pre">4</span></tt> the VM and when you come back to resume it with <tt class="docutils literal"><span class="pre">5</span></tt>.</p>
+<p>As it will take some time to get everything activated you need to wait a moment before you can proceed.</p>
+<p>The image wil be ready when the login command works and you can login into the VM. You can login into the image with <tt class="docutils literal"><span class="pre">9</span></tt>. If it does not work, you may want to wait a minute or two and try again.</p>
+<p>In case the shell gets stuck and you like to interrup you can user <tt class="docutils literal"><span class="pre">CTRL-C</span></tt> However note that this doe snot stop a command that is already started and runs in the background. Sometimes you may want to cancel a login which you can do this way.</p>
+</div>
+<div class="section" id="accessing-ipython-and-running-python-examples">
+<h2>3.6. Accessing IPython and running Python examples<a class="headerlink" href="#accessing-ipython-and-running-python-examples" title="Permalink to this headline">¶</a></h2>
+<p>Overview: This lesson discusses the use of IPython, how to open the existing notebooks and modification and creation of new files.</p>
+<p>To open IPython, use the public IP address (149.165..). In your browser enter as <a class="reference external" href="http://149.165.159.22/#notebooks">http://149.165.159.22/#notebooks</a> and you should be able to see and modify the course python files. When prompted for password enter your password that is given out by the course instructor. Please keep this password confidential. In future versions, this password can be set by you.</p>
+<p>NOTE:  It would take some time (3-4) mins for the server to get everything loaded.</p>
+<p>Overview: In this lesson we discuss important folders regarding the course that are contained in the VM.</p>
+<p>Once you have logged into VM, you can find the course related files under /home/ipynb</p>
+<p>NOTE: It will take some time (2-4 Mins) for all the course materials to be loaded.</p>
+<p>Overview: This lesson explains how to run Java and Python on the VM</p>
+<p>In the previous sections we have covered on how to log into the Virtual Machine. After logging into the VM, navigate to the /home/ipynb directory.</p>
+<p>The directory:</p>
+<div class="highlight-python"><pre>/home/ipynb</pre>
+</div>
+<p>has the course programs in both Java and Python.  To view the Java programs navigate to the directory with:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">cd</span>  <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">ipynb</span><span class="o">/</span><span class="n">java</span>
+</pre></div>
+</div>
+<p>Below are the steps to execute the java programs:</p>
+<div class="highlight-python"><pre>javac &lt;ClassName&gt;.java
+java  &lt;ClassName&gt;</pre>
+</div>
+<p>Similarly for python navigate to home/ipynb/python directory first cd into the directory:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">cd</span>  <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">ipynb</span><span class="o">/</span><span class="n">python</span>
+</pre></div>
+</div>
+<p>and than execute the desired program with:</p>
+<div class="highlight-python"><pre>python  &lt;FileName&gt;.py</pre>
+</div>
+<p>NOTE:
+* (1) If you are not able to view these directories, please logout and wait for some time before logging again. As mentioned before it would take some time to load the files to VM.</p>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2013, Cloudmesh, please contact Gregor von Laszewski about this manual..<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>
