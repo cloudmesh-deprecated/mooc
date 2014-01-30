@@ -408,11 +408,21 @@ In case the shell gets stuck and you like to interrup you can user ``CTRL-C`` Ho
 
 Accessing IPython and running Python examples
 ----------------------------------------------------------------------
+
 Overview: This lesson discusses the use of IPython, how to open the existing notebooks and modification and creation of new files. 
 
-To open IPython, use the public IP address (149.165..). In your browser enter as http://149.165.159.22/#notebooks and you should be able to see and modify the course python files. When prompted for password enter your password that is given out by the course instructor. Please keep this password confidential. In future versions, this password can be set by you.
+To open IPython, we need first to find the public IP of the VM. We have provided you with a simple tool to do that that is called when you press in the cm-mooc shell the key ``8``. You will see something like this on your screen::
 
-NOTE:  It would take some time (3-4) mins for the server to get everything loaded. 
+  retreiving public ip ...
+  Public IP:  149.165.159.255
+
+If you do not see it scroll the window up. Copy this address and type into a web browser the following (assuming your address is 149.165.159.255)::
+
+   http://149.165.159.22/#notebooks
+
+You should be able to see and modify the course python files. When prompted for password enter your password that is given out by the course instructor. Please keep this password confidential. In future versions, this password can be set by you.
+
+NOTE:  It may take some time (3-4) mins for the server to get everything loaded. 
 
 
 Course Related Files in the VM
