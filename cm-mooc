@@ -266,7 +266,7 @@ while cont:
     == Quit =================      == IP =====================
                                       
        q) Quit cm-mooc               8) list public ip
-		== Account Status ========
+		== Account Status =======
 		   10) Account Status
     """ 
     answer=getcharater()
