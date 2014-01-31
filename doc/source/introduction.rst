@@ -293,8 +293,9 @@ to wait till all accounts have been set up to use the key, or if you
 did not have an account till it has been created by an
 administrator. Please, check your email for further updates. You can
 also refresh this page and see if the boxes in your account status
-information are all green. Then you can continue   Joining the FG
-Project for the MOOC
+information are all green. Then you can continue   
+
+Joining the FG Project for the MOOC
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Overview: This lesson explains how to join a FutureGrid project
@@ -322,7 +323,9 @@ administrator to join the project.
 
 Please note that the account activation takes a usually a working
 day. Not that join requests over a weekend or holiday will be handled
-at the next buisiness day.    Using FutureGrid
+at the next buisiness day.   
+
+Using FutureGrid
 ======================================================================
 
 Overview: This lesson explains our customized shell that will simplify
