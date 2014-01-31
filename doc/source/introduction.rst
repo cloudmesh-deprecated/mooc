@@ -167,7 +167,7 @@ Using SSH
 
 SSH functionality by default available in Linux and Mac
 terminals. However in windows you need to install either Cygwin or
-`PuTTY <http://www.putty.org/>` for the SSH functionality. Instructions for installing Cygwin is
+`PuTTY <http://www.putty.org/>`_ for the SSH functionality. Instructions for installing Cygwin is
 provided at within the more detailed `FutureGrid manual in the
 security section <http://manual.futuregrid.org/security.html#id1>`_
 
