@@ -190,6 +190,13 @@ def login():
     os.system("ssh -X -i %s %s" % (os.path.expanduser("~/%s" % keyname), "root@%s" % ip))
 
 
+def is_account_created():
+    if(os.path.isfile('~/.futuregrid/openstack_havana/fg380')):
+       print "Account Creation Successful!!!"
+    else:
+       print "Your Openstack account is not yet created. It may take a day for this to happen. Please note no accounts will be created in hours outside of Mo-Fr 10am - 4pm EST"
+       sys.exit()
+
 def get_first_stack_vm_id():
     try:
         r = fgrep (heat("stack-list"), username)
@@ -259,6 +266,8 @@ while cont:
     == Quit =================      == IP =====================
                                       
        q) Quit cm-mooc               8) list public ip
+		== Account Status ========
+		   10) Account Status
     """ 
     answer=getcharater()
 
@@ -286,7 +295,8 @@ while cont:
             print "no ip found"
     elif "9" in answer:
         login()
-
+    elif "10" in answer:
+       is_account_created()
 #    elif "0" in answer:
 #        setup_bashrc()
     elif answer in "qQxX":
