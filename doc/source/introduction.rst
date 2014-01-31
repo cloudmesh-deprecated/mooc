@@ -37,7 +37,7 @@ You can find the FutureGrid Manual at
 * http://manual.futuregrid.org
 
 Much of the information presented here is directly copied from that
-manaul. To indicate where the information is comming from we are
+manaul. To indicate where the information is coming from we are
 adding to each lesson a resource section, so that you also can visit
 the original page.
 
@@ -92,7 +92,7 @@ Here are a few tips that make it easy for you
 -  If you have an e-mail address from your institution, we ask that you
    use this address instead of one from gmail, hotmail, or other e-mail
    services that we cannot trace back to your name or institution.
--  Usage of all non institutional addresses will prolong the application
+-  Usage of all non-institutional addresses will prolong the application
    process.
 -  Please note that creating a portal account does not give you access
    to any FutureGrid resources.     
@@ -167,7 +167,7 @@ Using SSH
 
 SSH functionality by default available in Linux and Mac
 terminals. However in windows you need to install either Cygwin or
-Putty for the SSH functionality. Instructions for installing Cygwin is
+`PuTTY <http://www.putty.org/>` for the SSH functionality. Instructions for installing Cygwin is
 provided at within the more detailed `FutureGrid manual in the
 security section <http://manual.futuregrid.org/security.html#id1>`_
 
@@ -293,7 +293,7 @@ to wait till all accounts have been set up to use the key, or if you
 did not have an account till it has been created by an
 administrator. Please, check your email for further updates. You can
 also refresh this page and see if the boxes in your account status
-information are all green. Then you can continue   
+information are all green. Then you can continue.
 
 Joining the FG Project for the MOOC
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -304,9 +304,9 @@ Overview: This lesson explains how to join a FutureGrid project
 
    * `FutureGrid Project 380 <https://portal.futuregrid.org/projects/380>`_
 
-Upon successful creation of your account, you will be able to join the
+Upon successful creation of your account, you will be able to join
 existing FutureGrid projects. For this course, you have to join the
-Big Data Course project. The project is located at
+Big Data Applications and Analytics project. The project is located at
 
 * https://portal.futuregrid.org/projects/380
 
@@ -330,7 +330,7 @@ Using FutureGrid
 
 Overview: This lesson explains our customized shell that will simplify
 management of the VMs for this upcomming lessons. The VM will start an
-IPython IPython Notebook.
+IPython Notebook.
 
 
 Login to a FutureGrid 
@@ -377,7 +377,7 @@ If your connection is successful, you should see output similar to below::
 
 
 For more information on cygwin we also recommend the following manuals (a) `Using Cygwin for X11 Forwarding <https://www.cs.virginia.edu/~csadmin/wiki/index.php/Using_Cygwin_for_X11_Forwarding>`_
-(b)  `Cygwin Manual<http://rcc.its.psu.edu/user_guides/remote_display/cygwin/>`_
+(b)  `Cygwin Manual <http://rcc.its.psu.edu/user_guides/remote_display/cygwin/>`_
 
 
 Activating the MOOC tools
