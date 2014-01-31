@@ -3,8 +3,8 @@ UNIT Overview
 
 This section has two goals. It is meant to
 
-* (a) give you an introduction to Futuregrid, and 
-* (b) how to use FutureGrid for the Big Data Course. 
+* give you an introduction to Futuregrid, and 
+* how to use FutureGrid for the Big Data Course. 
 
 As part of this we will present you with information on how to create
 a FutureGrid Account, Uploading OpenId and SSH Key and manage virtual
@@ -15,7 +15,7 @@ Accessing FutureGrid
 ====================================================================== 
 
 FutureGrid is a project led by Indiana University and funded by the
-National Science Foundation (NSF) to develop a high-performance grid
+National Science Foundation (NSF) to develop a cloud, grid, and high-performance 
 test bed that lets scientists collaboratively develop and test
 innovative approaches to parallel, grid, and cloud computing. The
 ultimate goal is to build a system that helps researchers identify
@@ -136,6 +136,10 @@ Upload SSH Key
 ----------------------------------------------------------------------
 
 Overview: This lesson explains how to upload and use a SSH key to log to the FutureGrid resources.
+
+.. sidebar:: |file-image| Resources 
+
+   * `FutureGrid Manual: Upload a SSH Key <http://manual.futuregrid.org/account.html#upload-a-ssh-public-key>`_
 
 
 In order to be able to log into the started VMs, among other purposes,
@@ -260,26 +264,29 @@ Upload the key to the FutureGrid Portal
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
-.. sidebar:: |info-image| Resources
+.. sidebar:: |file-image| Resources
 
    * `FutureGrid Manual: Upload a ssh public key <http://manual.futuregrid.org/account.html#upload-a-ssh-public-key>`_
 
 Next you need to upload the key to the portal. You must be logged into
 the portal to do so
 
-*	Step 1: Log into the portal
-*	Step 2: Click in the “ssh key” button. or go directly to https://portal.futuregrid.org/my/ssh-keys
-*	Step 3: Click in the “add a public key” link.
+* Step 1: Log into the portal
+
+* Step 2: Click in the “ssh key” button. or go directly to https://portal.futuregrid.org/my/ssh-keys
+
+* Step 3: Click in the “add a public key” link.
 
 * Step 4: Paste your ssh key into the box marked Key. Use a text
-   editor to open the “id_rsa.pub”. Copy the entire contents of
-   this file into the ssh key field as part of your profile
-   information. Many errors are introduced by users in this step
-   as they do not paste and copy correctly * Step 5 : Click the
-   submit button. IMPORTANT: Leave the Title field blank. Make
-   sure that when you paste your key, it does not contain
-   newlines or carriage returns that may have been introduced by
-   incorrect pasting and copying. If so, please remove them.
+  editor to open the “id_rsa.pub”. Copy the entire contents of
+  this file into the ssh key field as part of your profile
+  information. Many errors are introduced by users in this step
+  as they do not paste and copy correctly 
+
+* Step 5: Click the submit button. IMPORTANT: Leave the Title field blank. Make
+  sure that when you paste your key, it does not contain
+  newlines or carriage returns that may have been introduced by
+  incorrect pasting and copying. If so, please remove them.
 
 At this point you have uploaded your key. However you will still need
 to wait till all accounts have been set up to use the key, or if you
@@ -292,7 +299,7 @@ Project for the MOOC
 
 Overview: This lesson explains how to join a FutureGrid project
 
-.. sidebar:: |info-image| Resources
+.. sidebar:: |file-image| Resources
 
    * `FutureGrid Project 380 <https://portal.futuregrid.org/projects/380>`_
 
@@ -329,7 +336,7 @@ Login to a FutureGrid
 First you need to login to the FutureGrid machine called india. This
 is done with the following command::
 
-                        $ ssh -X username@india.futuregrid.org
+  ssh -X username@india.futuregrid.org
 
 Note: Your username will be the FutuerGrid portal name.
 
@@ -433,6 +440,18 @@ the vm for this lesson. You will see something like this::
 You can now press the numbers and an acction according to the
 description takes place. Please watch the response carefully. The menu
 can be left with the key ``q``
+
+A typical workflow for a new user looks like this:
+
+  ``1`` upload key > ``3`` start vm > 
+  ``wait`` for vm to be started > ``6`` check the status > if not
+  started continue to wait and repeat checcking with ``6`` >
+  ``9`` login into the vm
+
+To suspend and resume use ``4 or ``5``
+
+We explain important steps of this workflow in more detail next.
+
 
 
 Key Management
