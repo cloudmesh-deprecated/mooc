@@ -377,7 +377,7 @@ If your connection is successful, you should see output similar to below::
 
 
 For more information on cygwin we also recommend the following manuals (a) `Using Cygwin for X11 Forwarding <https://www.cs.virginia.edu/~csadmin/wiki/index.php/Using_Cygwin_for_X11_Forwarding>`_
-(b)  `Cygwin Manual<http://rcc.its.psu.edu/user_guides/remote_display/cygwin/>`_
+(b)  `Cygwin Manual <http://rcc.its.psu.edu/user_guides/remote_display/cygwin/>`_
 
 
 Activating the MOOC tools
@@ -434,6 +434,7 @@ the vm for this lesson. You will see something like this::
        == Login =================        6) list 
 					 7) delete
 	  9) login 
+          p) notebook password
 
        == Quit =================      == IP =====================
 
@@ -532,9 +533,10 @@ into a web browser the following (assuming your address is
    http://149.165.159.22/#notebooks
 
 You should be able to see and modify the course python files. When
-prompted for password enter your password that is given out by the
-course instructor. Please keep this password confidential. In future
-versions, this password can be set by you.
+prompted for password enter your password that you can obtain whil
+epressing the ``p`` key in the cm-mooc shell. Please keep this
+password confidential. In future versions, this password can 
+be set by you.
 
 NOTE:  It may take some time (3-4) mins for the server to get everything loaded. 
 
