@@ -3,12 +3,12 @@ UNIT Overview
 
 This section has two goals. It is meant to
 
-* give you an introduction to Futuregrid, and 
+* give you an introduction to FutureGrid, and 
 * how to use FutureGrid for the Big Data Course. 
 
 As part of this we will present you with information on how to create
-a FutureGrid Account, Uploading OpenId and SSH Key and manage virtual
-machines specifically targeting an ipython and Java environment that
+a FutureGrid account, upload OpenID and SSH keys, and manage virtual
+machines specifically targeting an IPython and Java environment that
 we will use as part of this lesson.
 
 Accessing FutureGrid
@@ -26,7 +26,7 @@ the Extreme Science and Engineering Discovery Environment
 (XSEDE). FutureGrid employs virtualization technology that lets the
 test bed support a wide range of operating systems.
 
-Futuregrid has an extensive set of manual pages that is provides the
+FutureGrid has an extensive set of manual pages that is provides the
 most up to date information. We recommend that you visit the manual
 pages and obtain a further overview of how to use the many services
 that FutureGrid offered. However, for this lesson, the information
@@ -111,10 +111,10 @@ Here are a few tips that make it easy for you
    Management <my>`.
 
  
-Upload an OpenId
+Upload an OpenID
 ----------------------------------------------------------------------
 
-Overview: This lesson explains how to upload and use OpenId to easily
+Overview: This lesson explains how to upload and use OpenID to easily
 log into the FutureGrid portal
 
 .. sidebar:: |file-image| Resources 
@@ -122,13 +122,13 @@ log into the FutureGrid portal
    * `FutureGrid Manual: Upload an OpenID <http://manual.futuregrid.org/account.html#upload-an-openid>`_
 
 Often users may not remember the password or username of the FG
-portal. However, they may have an easier time to remember their openid
-from for example google. It is possible to use your openid account and
+portal. However, they may have an easier time to remember their OpenID
+from for example Google. It is possible to use your OpenID account and
 register it once you gain access to the portal. Please visit your
 
 * `OpenID Page <https://portal.futuregrid.org/my/openid>`__
 
-to add your favorite OpenID. For example, to add your Google OpenId you simply
+to add your favorite OpenID. For example, to add your Google OpenID you simply
 click on the Google icon.
 
  
@@ -385,8 +385,8 @@ Activating the MOOC tools
 
 We have created for you a simple way of activating some default
 environment that will help you to more easily interact with the
-virtual machines that will be hosted on FutureGrid's Openstack
-infrastructure. Insead of overwhelming you with details of how to
+virtual machines that will be hosted on FutureGrid's OpenStack
+infrastructure. Instead of overwhelming you with details of how to
 manage the VM with lengthy OpenStack shell commands, we are using for
 this lesson a customized shell environment that allows you via a menu
 to interact with the system easily. After every log into india you
@@ -451,7 +451,7 @@ A typical workflow for a new user looks like this:
   started continue to wait and repeat checcking with ``6`` >
   ``9`` login into the vm
 
-To suspend and resume use ``4 or ``5``
+To suspend and resume use ``4`` or ``5``
 
 We explain important steps of this workflow in more detail next.
 
@@ -471,9 +471,9 @@ command::
 
 If you execute the command twice it will warn you that you already
 have uploaded and created a key. If for some reason you need to
-recreate the key, you will need to first delete is and than call the
+recreate the key, you will need to first delete it and then call the
 upload command again. To show you that the key is indeed uploaded to
-openstack the cm-mooc command will show you alse the list of keys on
+OpenStack the cm-mooc command will show you alse the list of keys on
 the terminal. You will see somthing like this::
 
   +--------------+-------------------------------------------------+
@@ -494,7 +494,7 @@ It will take some time till the image is uploaded. To see the status,
 you can invoke the list function with the key ``6``.
 
 Sometimes you may get an error or the start will take a long time. Be
-not alarmed about this. Openstack resources are limited, and sometimes
+not alarmed about this. OpenStack resources are limited, and sometimes
 ther may just not be eonugh resources to start another VM. Especially
 if other users start VMS that they may not use. Thus we ask you that
 once you are done with your activities to suspend with ``4`` the VM
