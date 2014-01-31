@@ -267,7 +267,7 @@ while cont:
                                       
        q) Quit cm-mooc               8) list public ip
 		== Account Status =======
-		   10) Account Status
+		   0) Account Status
     """ 
     answer=getcharater()
 
@@ -295,7 +295,7 @@ while cont:
             print "no ip found"
     elif "9" in answer:
         login()
-    elif "10" in answer:
+    elif "0" in answer:
        is_account_created()
 #    elif "0" in answer:
 #        setup_bashrc()
