@@ -17,6 +17,7 @@ from sh import ssh
 from sh import nova
 from sh import heat
 from sh import cat
+from sh import less
 from sh import fgrep
 
 
@@ -190,12 +191,14 @@ def login():
     os.system("ssh -X -i %s %s" % (os.path.expanduser("~/%s" % keyname), "root@%s" % ip))
 
 
-def is_account_created():
-    if(os.path.isfile('~/.futuregrid/openstack_havana/fg380')):
-       print "Account Creation Successful!!!"
+def is_account_created(msg):
+    if (os.path.isfile(os.path.expanduser('~/.futuregrid/openstack_havana/fg380'))):
+       print msg
     else:
        print "Your Openstack account is not yet created. It may take a day for this to happen. Please note no accounts will be created in hours outside of Mo-Fr 10am - 4pm EST"
        sys.exit()
+
+is_account_created("")
 
 def get_first_stack_vm_id():
     try:
@@ -211,13 +214,22 @@ def get_first_stack_vm_id():
         print "I coudl not find a vm for you, did you start one?"
 
 
+
+
 try:
     list_stack()
 except:
     print "ERROR: you may not be in this project."
     print "Please make sure on the portal that you are added to the members of the project."
     sys.exit()
-    
+
+def show_password():
+    filename = "/share/project/FG380/mooc/.password"
+    with open(filename, "r") as f:
+        lines = f.readlines()
+    print "PASSWORD:", lines[0].replace("\n", "")
+
+
 
 
 #def setup_bashrc():#
@@ -261,13 +273,13 @@ while cont:
                                       5) resume 
     == Login =================        6) list 
                                       7) delete
-       9) login 
+       9) login
+       p) notebook paassword
                                    
     == Quit =================      == IP =====================
                                       
        q) Quit cm-mooc               8) list public ip
-		== Account Status =======
-		   0) Account Status
+
     """ 
     answer=getcharater()
 
@@ -275,6 +287,7 @@ while cont:
         upload_key()
     elif "2" in answer:
         delete_key()
+
 
     elif "3" in answer:
         start_stack_vm()
@@ -295,8 +308,10 @@ while cont:
             print "no ip found"
     elif "9" in answer:
         login()
+    elif "p" in answer:
+        show_password()
     elif "0" in answer:
-       is_account_created()
+       is_account_created("Your OpenStack account is ready to use.")
 #    elif "0" in answer:
 #        setup_bashrc()
     elif answer in "qQxX":
