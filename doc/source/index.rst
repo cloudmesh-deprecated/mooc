@@ -9,7 +9,7 @@
 .. sidebar:: Authors
 
    Gregor von Laszewski,
-   Jonatahn Klingensmith,
+   Jonathan Klinginsmith,
    Fugang Wang,
    Allen Streib,
    Sidd Maini,

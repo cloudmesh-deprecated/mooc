@@ -3,12 +3,12 @@ UNIT Overview
 
 This section has two goals. It is meant to
 
-* give you an introduction to Futuregrid, and 
+* give you an introduction to FutureGrid, and 
 * how to use FutureGrid for the Big Data Course. 
 
 As part of this we will present you with information on how to create
-a FutureGrid Account, Uploading OpenId and SSH Key and manage virtual
-machines specifically targeting an ipython and Java environment that
+a FutureGrid account, upload OpenID and SSH keys, and manage virtual
+machines specifically targeting an IPython and Java environment that
 we will use as part of this lesson.
 
 Accessing FutureGrid
@@ -26,7 +26,7 @@ the Extreme Science and Engineering Discovery Environment
 (XSEDE). FutureGrid employs virtualization technology that lets the
 test bed support a wide range of operating systems.
 
-Futuregrid has an extensive set of manual pages that is provides the
+FutureGrid has an extensive set of manual pages that is provides the
 most up to date information. We recommend that you visit the manual
 pages and obtain a further overview of how to use the many services
 that FutureGrid offered. However, for this lesson, the information
@@ -37,7 +37,7 @@ You can find the FutureGrid Manual at
 * http://manual.futuregrid.org
 
 Much of the information presented here is directly copied from that
-manaul. To indicate where the information is comming from we are
+manaul. To indicate where the information is coming from we are
 adding to each lesson a resource section, so that you also can visit
 the original page.
 
@@ -92,7 +92,7 @@ Here are a few tips that make it easy for you
 -  If you have an e-mail address from your institution, we ask that you
    use this address instead of one from gmail, hotmail, or other e-mail
    services that we cannot trace back to your name or institution.
--  Usage of all non institutional addresses will prolong the application
+-  Usage of all non-institutional addresses will prolong the application
    process.
 -  Please note that creating a portal account does not give you access
    to any FutureGrid resources.     
@@ -111,10 +111,10 @@ Here are a few tips that make it easy for you
    Management <my>`.
 
  
-Upload an OpenId
+Upload an OpenID
 ----------------------------------------------------------------------
 
-Overview: This lesson explains how to upload and use OpenId to easily
+Overview: This lesson explains how to upload and use OpenID to easily
 log into the FutureGrid portal
 
 .. sidebar:: |file-image| Resources 
@@ -122,13 +122,13 @@ log into the FutureGrid portal
    * `FutureGrid Manual: Upload an OpenID <http://manual.futuregrid.org/account.html#upload-an-openid>`_
 
 Often users may not remember the password or username of the FG
-portal. However, they may have an easier time to remember their openid
-from for example google. It is possible to use your openid account and
+portal. However, they may have an easier time to remember their OpenID
+from for example Google. It is possible to use your OpenID account and
 register it once you gain access to the portal. Please visit your
 
 * `OpenID Page <https://portal.futuregrid.org/my/openid>`__
 
-to add your favorite OpenID. For example, to add your Google OpenId you simply
+to add your favorite OpenID. For example, to add your Google OpenID you simply
 click on the Google icon.
 
  
@@ -167,7 +167,7 @@ Using SSH
 
 SSH functionality by default available in Linux and Mac
 terminals. However in windows you need to install either Cygwin or
-Putty for the SSH functionality. Instructions for installing Cygwin is
+`PuTTY <http://www.putty.org/>`_ for the SSH functionality. Instructions for installing Cygwin is
 provided at within the more detailed `FutureGrid manual in the
 security section <http://manual.futuregrid.org/security.html#id1>`_
 
@@ -293,7 +293,7 @@ to wait till all accounts have been set up to use the key, or if you
 did not have an account till it has been created by an
 administrator. Please, check your email for further updates. You can
 also refresh this page and see if the boxes in your account status
-information are all green. Then you can continue   
+information are all green. Then you can continue.
 
 Joining the FG Project for the MOOC
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -304,9 +304,9 @@ Overview: This lesson explains how to join a FutureGrid project
 
    * `FutureGrid Project 380 <https://portal.futuregrid.org/projects/380>`_
 
-Upon successful creation of your account, you will be able to join the
+Upon successful creation of your account, you will be able to join
 existing FutureGrid projects. For this course, you have to join the
-Big Data Course project. The project is located at
+Big Data Applications and Analytics project. The project is located at
 
 * https://portal.futuregrid.org/projects/380
 
@@ -330,7 +330,7 @@ Using FutureGrid
 
 Overview: This lesson explains our customized shell that will simplify
 management of the VMs for this upcomming lessons. The VM will start an
-IPython IPython Notebook.
+IPython Notebook.
 
 
 Login to a FutureGrid 
@@ -385,8 +385,8 @@ Activating the MOOC tools
 
 We have created for you a simple way of activating some default
 environment that will help you to more easily interact with the
-virtual machines that will be hosted on FutureGrid's Openstack
-infrastructure. Insead of overwhelming you with details of how to
+virtual machines that will be hosted on FutureGrid's OpenStack
+infrastructure. Instead of overwhelming you with details of how to
 manage the VM with lengthy OpenStack shell commands, we are using for
 this lesson a customized shell environment that allows you via a menu
 to interact with the system easily. After every log into india you
@@ -452,7 +452,7 @@ A typical workflow for a new user looks like this:
   started continue to wait and repeat checcking with ``6`` >
   ``9`` login into the vm
 
-To suspend and resume use ``4 or ``5``
+To suspend and resume use ``4`` or ``5``
 
 We explain important steps of this workflow in more detail next.
 
@@ -472,9 +472,9 @@ command::
 
 If you execute the command twice it will warn you that you already
 have uploaded and created a key. If for some reason you need to
-recreate the key, you will need to first delete is and than call the
+recreate the key, you will need to first delete it and then call the
 upload command again. To show you that the key is indeed uploaded to
-openstack the cm-mooc command will show you alse the list of keys on
+OpenStack the cm-mooc command will show you alse the list of keys on
 the terminal. You will see somthing like this::
 
   +--------------+-------------------------------------------------+
@@ -495,7 +495,7 @@ It will take some time till the image is uploaded. To see the status,
 you can invoke the list function with the key ``6``.
 
 Sometimes you may get an error or the start will take a long time. Be
-not alarmed about this. Openstack resources are limited, and sometimes
+not alarmed about this. OpenStack resources are limited, and sometimes
 ther may just not be eonugh resources to start another VM. Especially
 if other users start VMS that they may not use. Thus we ask you that
 once you are done with your activities to suspend with ``4`` the VM
