@@ -406,7 +406,10 @@ Next you can start the MOOC shell with the command::
    cm-mooc
 
 This will bring up a menu with a number of useful commands to manage
-the vm for this lesson. You will see something like this::
+the vm for this lesson. If your account has not yet been activated,
+the command will quit with an error message. You will have to wait a
+day if this is the case. Otherwise you will see an output similare to
+this (make sure you make your terminal window big enough)::
 
    ./cm-mooc 
 
