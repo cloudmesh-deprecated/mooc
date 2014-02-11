@@ -20,7 +20,7 @@ from sh import cat
 from sh import less
 from sh import fgrep
 
-
+import traceback
 
 ######################################################################
 # Terminal related methods
@@ -108,7 +108,10 @@ def start_stack_vm():
         print vms
     except:
         print "ERROR: stack creation failed."
-        print "Remember to run only one stack"
+        print "Exception in user code:"
+        print '-'*60
+        traceback.print_exc(file=sys.stdout)
+        print '-'*60
  
 def suspend_vm():
     print "suspend vm ..."
