@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 #
-# Developed by Gregor von Laszewski for the MOOC, laszewski@gmail.com 
+# Developed by Gregor von Laszewski for the MOOC, laszewski@gmail.com
 #
 # getcharacter is based on http://stackoverflow.com/questions/1829/how-do-i-make-a-menu-that-does-not-require-the-user-to-press-enter-to-make-a-s
 #
@@ -72,7 +72,7 @@ def logo():
               \____|_|\___/ \__,_|\__,_| |_|  |_|\___||___/_| |_|
             ======================================================
             """)
-    return banner	
+    return banner
 
 print logo()
 
@@ -89,6 +89,7 @@ if tenant != "fg380":
     print "The file is located at ~/.futuregrid/openstack_havana/novarc"
     sys.exit()
 
+
 def getcharater():
     old_settings = termios.tcgetattr(sys.stdin)
     tty.setraw(sys.stdin.fileno())
@@ -96,6 +97,7 @@ def getcharater():
     answer = sys.stdin.read(1)
     termios.tcsetattr(sys.stdin, termios.TCSADRAIN, old_settings)
     return answer
+
 
 def add_message_if_missing(filename, message):
     os.system("touch " + filename)
@@ -107,56 +109,69 @@ def add_message_if_missing(filename, message):
         with open("test.txt", "a") as f:
             f.write(str(message) + "\n")
 
+
 def start_vm():
-    vms = nova("--os-username", username, "--os-tenant-name", tenant, "list").split("\n")[3:-2]
+    vms = nova("--os-username", username, "--os-tenant-name",
+               tenant, "list").split("\n")[3:-2]
     print vms
     print "start vm ..."
 
+
 def start_stack_vm():
     #global password_hash
-    #if password_hash is None:
-   password_hash=get_hash_password()
-   try:
-     print "start stack vm ..."
-     vms =  heat("stack-create","-f","/share/project/FG380/bigdata_mooc_temp.yaml", "-P", "KeyName=%s;PasswdHash=%s" % (keyname, password_hash), username)
-     print vms
-   except:
-     print "ERROR: stack creation failed."
-     print "Exception in user code:"
-     print '-'*60
-     traceback.print_exc(file=sys.stdout)
-     print '-'*60
- 
+    # if password_hash is None:
+    password_hash = get_hash_password()
+    try:
+        print "start stack vm ..."
+        vms = heat(
+            "stack-create", "-f", "/share/project/FG380/bigdata_mooc_temp.yaml",
+            "-P", "KeyName=%s;PasswdHash=%s" % (keyname, password_hash), username)
+        print vms
+    except:
+        print "ERROR: stack creation failed."
+        print "Exception in user code:"
+        print '-' * 60
+        traceback.print_exc(file=sys.stdout)
+        print '-' * 60
+
+
 def suspend_vm():
     print "suspend vm ..."
 
+
 def resume_vm():
     print "resume vm ..."
+
 
 def list_vm():
     print "list vm ..."
     r = nova("--os-username", username, "--os-tenant-name", tenant, "list")
     print r
 
+
 def list_stack():
     print "list stack ..."
     r = heat("stack-list")
     print r
 
+
 def delete_stack():
     print "delete stack ..."
-    r = heat("stack-delete",username)
+    r = heat("stack-delete", username)
     print r
+
 
 def stack_suspend():
     print "suspend stack ..."
-    r = heat("action-suspend",username)
+    r = heat("action-suspend", username)
     print r
+
 
 def stack_resume():
     print "resume stack ..."
-    r = heat("action-resume",username)
+    r = heat("action-resume", username)
     print r
+
 
 def delete_key():
     try:
@@ -165,7 +180,8 @@ def delete_key():
         print r
     except:
         print "key not found"
-        
+
+
 def upload_key():
 
     print "probing keys ..."
@@ -188,20 +204,23 @@ def upload_key():
             os.system("chmod 600 ~/%s" % (keyname))
         except:
             print "some error occured, yo probably have already a key uploaded"
-    print 
+    print
     r = nova("keypair-list")
     print r
 
+
 def get_ip_from_stack():
-    r = fgrep (heat("resource-show", username, "server"), "physical_resource_id")
+    r = fgrep(heat("resource-show", username, "server"),
+              "physical_resource_id")
     vms = r.split("\n")
-    physical_resource_id  = vms[0].split("|")[2].strip()
+    physical_resource_id = vms[0].split("|")[2].strip()
     r = nova("show", physical_resource_id)
-    network = fgrep (r, "private network")
+    network = fgrep(r, "private network")
     ips = network.split("|")[2].strip()
-    (private_ip,public_ip) = ips.replace(" ","").split(",")
+    (private_ip, public_ip) = ips.replace(" ", "").split(",")
     return public_ip
-    
+
+
 def login():
     print "login vm ..."
     try:
@@ -211,10 +230,12 @@ def login():
         return
     try:
         print "ssh -X -i %s %s" % (os.path.expanduser("~/%s" % keyname), "root@%s" % ip)
-        os.system("ssh -X -i %s %s" % (os.path.expanduser("~/%s" % keyname), "root@%s" % ip))
+        os.system("ssh -X -i %s %s" %
+                  (os.path.expanduser("~/%s" % keyname), "root@%s" % ip))
     except:
         print "ssh failed"
-        
+
+
 def check():
     print "check vm ..."
     try:
@@ -226,27 +247,30 @@ def check():
         directory = "/home/ipynb"
         command = ["-i", os.path.expanduser("~/%s" % keyname),
                    "root@%s" % (ip),
-               "test", "-e", pipes.quote(directory)
-               ]
+                   "test", "-e", pipes.quote(directory)
+                   ]
         print "ssh", " ".join(command)
         ssh(command)
         print ('VM is created successfully . You can login to it')
     except:
-        print ('VM is not ready yet. Please check after some time')								    
+        print ('VM is not ready yet. Please check after some time')
+
+
 def is_account_created(msg):
     if (os.path.isfile(os.path.expanduser('~/.futuregrid/openstack_havana/fg380'))):
-       print msg
+        print msg
     else:
-       print "Your Openstack account is not yet created. It may take a day for this to happen. Please note no accounts will be created in hours outside of Mo-Fr 10am - 4pm EST"
-       sys.exit()
+        print "Your Openstack account is not yet created. It may take a day for this to happen. Please note no accounts will be created in hours outside of Mo-Fr 10am - 4pm EST"
+        sys.exit()
 
 is_account_created("")
 
+
 def get_first_stack_vm_id():
     try:
-        r = fgrep (heat("stack-list"), username)
+        r = fgrep(heat("stack-list"), username)
         print "Your vms are:"
-        
+
         print r
         vms = r.split("\n")
         (prefix, id, rest, x, y, z) = vms[0].split("|")
@@ -256,8 +280,6 @@ def get_first_stack_vm_id():
         print "I coudl not find a vm for you, did you start one?"
 
 
-
-
 try:
     list_stack()
 except:
@@ -265,24 +287,29 @@ except:
     print "Please make sure on the portal that you are added to the members of the project."
     sys.exit()
 
+
 def show_default_password():
     filename = os.path.expanduser("~/.futuregrid/.moocrc")
     with open(filename, "r") as f:
         lines = f.readlines()
     print "PASSWORD:", lines[0].replace("\n", "")
-    return lines[0].replace("\n","")
+    return lines[0].replace("\n", "")
+
 
 def get_password_hash():
     pass
+
 
 def encode(u, encoding=None):
     encoding = encoding or DEFAULT_ENCODING
     return u.encode(encoding, "replace")
 
+
 def cast_bytes(s, encoding=None):
     if not isinstance(s, bytes):
         return encode(s, encoding)
     return s
+
 
 def no_code(x, encoding=None):
     return x
@@ -292,21 +319,26 @@ str_to_bytes = no_code
 #
 # see http://stackoverflow.com/questions/75057/what-is-the-best-way-to-check-the-strength-of-a-password
 #
+
+
 def validate_password(passwd):
     if passwd is None:
         return False
     conditions_met = 0
     conditions_total = 1
     if len(passwd) >= 6:
-        if passwd.lower() != passwd: conditions_met += 1
-        if len([x for x in passwd if x.isdigit()]) > 0: conditions_met += 1
-        if len([x for x in passwd if not x.isalnum()]) > 0: conditions_met += 1
+        if passwd.lower() != passwd:
+            conditions_met += 1
+        if len([x for x in passwd if x.isdigit()]) > 0:
+            conditions_met += 1
+        if len([x for x in passwd if not x.isalnum()]) > 0:
+            conditions_met += 1
     result = False
     if conditions_met >= 1:
         result = True
     return result
 
-    
+
 def create_passphrase(passphrase=None, algorithm='sha1'):
     """Generate hashed password and salt for use in notebook configuration.
 
@@ -350,26 +382,29 @@ def create_passphrase(passphrase=None, algorithm='sha1'):
     writepassword(passphrase)
     return passphrase
 
-def get_hash_password():
-   password = check_default_password()
-   if password is None:
-     password = create_passphrase()
-   return create_hash(password)
 
-def create_hash(passphrase , algorithm = 'sha1'):
-   h = hashlib.new(algorithm)
-   salt = ('%0' + str(salt_len) + 'x') % random.getrandbits(4 * salt_len)
-   h.update(cast_bytes(passphrase, 'utf-8') + str_to_bytes(salt, 'ascii'))
-   return ':'.join((algorithm, salt, h.hexdigest()))
+def get_hash_password():
+    password = check_default_password()
+    if password is None:
+        password = create_passphrase()
+    return create_hash(password)
+
+
+def create_hash(passphrase, algorithm='sha1'):
+    h = hashlib.new(algorithm)
+    salt = ('%0' + str(salt_len) + 'x') % random.getrandbits(4 * salt_len)
+    h.update(cast_bytes(passphrase, 'utf-8') + str_to_bytes(salt, 'ascii'))
+    return ':'.join((algorithm, salt, h.hexdigest()))
+
 
 def writepassword(user_password):
-    filename = os.path.expanduser("~/.futuregrid/.moocrc")    
+    filename = os.path.expanduser("~/.futuregrid/.moocrc")
     password_file = open(filename, 'w+')
     password_file.write(user_password)
     password_file.close()
 
-  #chmod go-rwx
-  
+  # chmod go-rwx
+
 
 #def setup_bashrc():#
 #
@@ -382,26 +417,25 @@ def writepassword(user_password):
 #    r = cat(filename)
 #    print r
 #    print 70 * '-'
-    
-#uploading SSH key to the cloud
+
+# uploading SSH key to the cloud
 
 
-#Managing Securiy Groups
+# Managing Securiy Groups
 # nova secgroup-add-rule default icmp -1 -1 0.0.0.0/0
 # nova secgroup-add-rule default tcp 22 22 0.0.0.0/0
 # nova secgroup-list-rules default
 
 
-    
 cont = True
 while cont:
-    print 
+    print
     print """Cloudmesh MOOC FG380 Menu"""
-    print 70*'-'
+    print 70 * '-'
     print "user  : %s" % (username)
     print "tenant: %s" % (tenant)
     print "key   : %s" % (keyname)
-    print 70*'-'
+    print 70 * '-'
 
     print """
 
@@ -420,14 +454,13 @@ while cont:
                                       
        q) Quit cm-mooc               8) list public ip
 
-    """ 
-    answer=getcharater()
+    """
+    answer = getcharater()
 
     if "1" in answer:
         upload_key()
     elif "2" in answer:
         delete_key()
-
 
     elif answer in ["3", "+"]:
         start_stack_vm()
@@ -453,9 +486,8 @@ while cont:
     elif "p" in answer:
         show_default_password()
     elif "0" in answer:
-       is_account_created("Your OpenStack account is ready to use.")
+        is_account_created("Your OpenStack account is ready to use.")
 #    elif "0" in answer:
 #        setup_bashrc()
     elif answer in "qQxX":
         cont = False
-                        
