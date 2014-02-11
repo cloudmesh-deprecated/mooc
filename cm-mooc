@@ -266,6 +266,9 @@ except:
     sys.exit()
 
 def show_default_password():
+
+    password_hash=passwd()
+        
     filename = os.path.expanduser("~/.futuregrid/.moocrc")
     with open(filename, "r") as f:
         lines = f.readlines()
@@ -360,7 +363,7 @@ def writepassword(user_password):
     password_file.write(user_password)
     password_file.close()
 
-  #chmod go-rwx
+#chmod go-rwx
   
 
 #def setup_bashrc():#
@@ -406,7 +409,7 @@ while cont:
                                       7) delete
        c) check
        l) login
-       p) notebook paassword
+       p) notebook password
                                    
     == Quit =================      == IP =====================
                                       
