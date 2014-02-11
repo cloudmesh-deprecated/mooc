@@ -13,6 +13,7 @@ import sys
 import select
 import termios
 import tty
+
 from sh import ssh
 from sh import nova
 from sh import heat
@@ -21,6 +22,10 @@ from sh import less
 from sh import fgrep
 
 import traceback
+
+import hashlib
+import random
+import getpass
 
 ######################################################################
 # Terminal related methods
@@ -73,6 +78,10 @@ username = os.getenv("OS_USERNAME")
 tenant = os.getenv("OS_TENANT_NAME")
 keyname = "%s-key" % (username)
 
+salt_len = 12
+
+password_hash = None
+
 if tenant != "fg380":
     print "Please change your novarc file and change the tenant name to fg380"
     print "The file is located at ~/.futuregrid/openstack_havana/novarc"
@@ -102,9 +111,12 @@ def start_vm():
     print "start vm ..."
 
 def start_stack_vm():
+    global password_hash
+    if password_hash is None:
+        password_hash=passwd(show_default_password())
     try:
         print "start stack vm ..."
-        vms =  heat("stack-create","-f","/share/project/FG380/bigdata_mooc.yaml", "-P", "KeyName=%s" % keyname, username)
+        vms =  heat("stack-create","-f","/share/project/FG380/bigdata_mooc_temp.yaml", "-P", "KeyName=%s;PasswdHash=%s" % (keyname, password_hash), username)
         print vms
     except:
         print "ERROR: stack creation failed."
@@ -227,14 +239,73 @@ except:
     print "Please make sure on the portal that you are added to the members of the project."
     sys.exit()
 
-def show_password():
+def show_default_password():
     filename = "/share/project/FG380/mooc/.password"
     with open(filename, "r") as f:
         lines = f.readlines()
     print "PASSWORD:", lines[0].replace("\n", "")
+    return lines[0].replace("\n","")
 
+def get_password_hash():
+    pass
 
+def encode(u, encoding=None):
+    encoding = encoding or DEFAULT_ENCODING
+    return u.encode(encoding, "replace")
 
+def cast_bytes(s, encoding=None):
+    if not isinstance(s, bytes):
+        return encode(s, encoding)
+    return s
+
+def no_code(x, encoding=None):
+    return x
+
+str_to_bytes = no_code
+
+def passwd(passphrase=None, algorithm='sha1'):
+    """Generate hashed password and salt for use in notebook configuration.
+
+    In the notebook configuration, set `c.NotebookApp.password` to
+    the generated string.
+
+    Parameters
+    ----------
+    passphrase : str
+        Password to hash.  If unspecified, the user is asked to input
+        and verify a password.
+    algorithm : str
+        Hashing algorithm to use (e.g, 'sha1' or any argument supported
+        by :func:`hashlib.new`).
+
+    Returns
+    -------
+    hashed_passphrase : str
+        Hashed password, in the format 'hash_algorithm:salt:passphrase_hash'.
+
+    Examples
+    --------
+    >>> passwd('mypassword')
+    'sha1:7cf3:b7d6da294ea9592a9480c8f52e63cd42cfb9dd12'
+
+    """
+    if passphrase is None:
+        for i in range(3):
+            p0 = getpass.getpass('Enter password: ')
+            p1 = getpass.getpass('Verify password: ')
+            if p0 == p1:
+                passphrase = p0
+                break
+            else:
+                print('Passwords do not match.')
+        else:
+            raise UsageError('No matching passwords found. Giving up.')
+
+    h = hashlib.new(algorithm)
+    salt = ('%0' + str(salt_len) + 'x') % random.getrandbits(4 * salt_len)
+    h.update(cast_bytes(passphrase, 'utf-8') + str_to_bytes(salt, 'ascii'))
+
+    return ':'.join((algorithm, salt, h.hexdigest()))
 
 #def setup_bashrc():#
 #
@@ -313,7 +384,7 @@ while cont:
     elif "9" in answer:
         login()
     elif "p" in answer:
-        show_password()
+        show_default_password()
     elif "0" in answer:
        is_account_created("Your OpenStack account is ready to use.")
 #    elif "0" in answer:
