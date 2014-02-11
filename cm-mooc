@@ -204,22 +204,35 @@ def get_ip_from_stack():
     
 def login():
     print "login vm ..."
-    ip = get_ip_from_stack()
-    print "ssh -X -i %s %s" % (os.path.expanduser("~/%s" % keyname), "root@%s" % ip)
-    os.system("ssh -X -i %s %s" % (os.path.expanduser("~/%s" % keyname), "root@%s" % ip))
-
+    try:
+        ip = get_ip_from_stack()
+    except:
+        print "IP address not yet assigned, or server not yet created"
+        return
+    try:
+        print "ssh -X -i %s %s" % (os.path.expanduser("~/%s" % keyname), "root@%s" % ip)
+        os.system("ssh -X -i %s %s" % (os.path.expanduser("~/%s" % keyname), "root@%s" % ip))
+    except:
+        print "ssh failed"
+        
 def check():
     print "check vm ..."
-    ip = get_ip_from_stack()
-    ssh_host = "-i %s %s " % (os.path.expanduser("~/%s" % keyname) , "root@%s" %
-		ip)
-    directory = "/home/ipynb"
-    resp = subprocess.call(
-		    ['ssh', ssh_host, 'test -e ' + pipes.quote(directory)])		 
-    if resp == 0:
-       print ('VM is created successfully . You can login to it')
-    else:
-       print ('VM is not ready yet. Please check after some time')								    
+    try:
+        ip = get_ip_from_stack()
+    except:
+        print "IP address not yet assigned, or server not yet created"
+        return
+    try:
+        directory = "/home/ipynb"
+        command = ["-i", os.path.expanduser("~/%s" % keyname),
+                   "root@%s" % (ip),
+               "test", "-e", pipes.quote(directory)
+               ]
+        print "ssh", " ".join(command)
+        ssh(command)
+        print ('VM is created successfully . You can login to it')
+    except:
+        print ('VM is not ready yet. Please check after some time')								    
 def is_account_created(msg):
     if (os.path.isfile(os.path.expanduser('~/.futuregrid/openstack_havana/fg380'))):
        print msg
@@ -253,7 +266,7 @@ except:
     sys.exit()
 
 def show_default_password():
-    filename = "~/.futuregrid/.password"
+    filename = os.path.expanduser("~/.futuregrid/.moocrc")
     with open(filename, "r") as f:
         lines = f.readlines()
     print "PASSWORD:", lines[0].replace("\n", "")
@@ -276,6 +289,24 @@ def no_code(x, encoding=None):
 
 str_to_bytes = no_code
 
+#
+# see http://stackoverflow.com/questions/75057/what-is-the-best-way-to-check-the-strength-of-a-password
+#
+def validate_password(passwd):
+    if passwd is None:
+        return False
+    conditions_met = 0
+    conditions_total = 1
+    if len(passwd) >= 6:
+        if passwd.lower() != passwd: conditions_met += 1
+        if len([x for x in passwd if x.isdigit()]) > 0: conditions_met += 1
+        if len([x for x in passwd if not x.isalnum()]) > 0: conditions_met += 1
+    result = False
+    if conditions_met >= 1:
+        result = True
+    return result
+
+    
 def passwd(passphrase=None, algorithm='sha1'):
     """Generate hashed password and salt for use in notebook configuration.
 
@@ -302,27 +333,36 @@ def passwd(passphrase=None, algorithm='sha1'):
     'sha1:7cf3:b7d6da294ea9592a9480c8f52e63cd42cfb9dd12'
 
     """
-    if passphrase is None:
-        for i in range(3):
-            p0 = getpass.getpass('Enter password: ')
-            p1 = getpass.getpass('Verify password: ')
-            if p0 == p1:
-                passphrase = p0
-                break
-            else:
-                print('Passwords do not match.')
-        else:
-            raise UsageError('No matching passwords found. Giving up.')
-    writepassword(password)
+    while not validate_password(passphrase):
+        print "Please define a pasphrase for your notebook:"
+        passphrase = None
+        if passphrase is None:
+            for i in range(3):
+                p0 = getpass.getpass('Enter password: ')
+                p1 = getpass.getpass('Verify password: ')
+                if p0 == p1:
+                    passphrase = p0
+                    break
+                else:
+                    print('Passwords do not match.')
+                    #raise UsageError('No matching passwords found. Giving up.')
+                    passphrase = None
+    writepassword(passphrase)
     h = hashlib.new(algorithm)
     salt = ('%0' + str(salt_len) + 'x') % random.getrandbits(4 * salt_len)
     h.update(cast_bytes(passphrase, 'utf-8') + str_to_bytes(salt, 'ascii'))
 
     return ':'.join((algorithm, salt, h.hexdigest()))
-def writepassword(password):
-  file = open('~/.futuregrid/.password', 'w+')
-  file.write(password)
-  file.close()
+
+def writepassword(user_password):
+    filename = os.path.expanduser("~/.futuregrid/.moocrc")    
+    password_file = open(filename, 'w+')
+    password_file.write(user_password)
+    password_file.close()
+
+  #chmod go-rwx
+  
+
 #def setup_bashrc():#
 #
 #    filename = "test.txt"
@@ -365,7 +405,7 @@ while cont:
     == Login =================        6) list 
                                       7) delete
        c) check
-			 9) login
+       l) login
        p) notebook paassword
                                    
     == Quit =================      == IP =====================
@@ -381,15 +421,15 @@ while cont:
         delete_key()
 
 
-    elif "3" in answer:
+    elif answer in ["3", "+"]:
         start_stack_vm()
-    elif "4" in answer:
+    elif answer in ["3", "."]:
         stack_suspend()
-    elif "5" in answer:
+    elif answer in ["5", "r"]:
         stack_resume()
-    elif "6" in answer:
+    elif answer in ["6", "?"]:
         list_stack()
-    elif "7" in answer:
+    elif answer in ["7", "-"]:
         delete_stack()
     elif "8" in answer:
         print "retreiving public ip ..."
@@ -398,7 +438,7 @@ while cont:
             print "Public IP: ", ip
         except:
             print "no ip found"
-    elif "9" in answer:
+    elif answer in ["9", "l"]:
         login()
     elif "c" in answer:
         check()
