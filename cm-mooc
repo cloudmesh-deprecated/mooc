@@ -82,7 +82,7 @@ keyname = "%s-key" % (username)
 
 salt_len = 12
 
-password_hash = None
+#password_hash = None
 
 if tenant != "fg380":
     print "Please change your novarc file and change the tenant name to fg380"
@@ -113,19 +113,19 @@ def start_vm():
     print "start vm ..."
 
 def start_stack_vm():
-    global password_hash
-    if password_hash is None:
-        password_hash=passwd()
-    try:
-        print "start stack vm ..."
-        vms =  heat("stack-create","-f","/share/project/FG380/bigdata_mooc_temp.yaml", "-P", "KeyName=%s;PasswdHash=%s" % (keyname, password_hash), username)
-        print vms
-    except:
-        print "ERROR: stack creation failed."
-        print "Exception in user code:"
-        print '-'*60
-        traceback.print_exc(file=sys.stdout)
-        print '-'*60
+    #global password_hash
+    #if password_hash is None:
+   password_hash=get_hash_password()
+   try:
+     print "start stack vm ..."
+     vms =  heat("stack-create","-f","/share/project/FG380/bigdata_mooc_temp.yaml", "-P", "KeyName=%s;PasswdHash=%s" % (keyname, password_hash), username)
+     print vms
+   except:
+     print "ERROR: stack creation failed."
+     print "Exception in user code:"
+     print '-'*60
+     traceback.print_exc(file=sys.stdout)
+     print '-'*60
  
 def suspend_vm():
     print "suspend vm ..."
@@ -310,7 +310,7 @@ def validate_password(passwd):
     return result
 
     
-def passwd(passphrase=None, algorithm='sha1'):
+def create_passphrase(passphrase=None, algorithm='sha1'):
     """Generate hashed password and salt for use in notebook configuration.
 
     In the notebook configuration, set `c.NotebookApp.password` to
@@ -351,11 +351,19 @@ def passwd(passphrase=None, algorithm='sha1'):
                     #raise UsageError('No matching passwords found. Giving up.')
                     passphrase = None
     writepassword(passphrase)
-    h = hashlib.new(algorithm)
-    salt = ('%0' + str(salt_len) + 'x') % random.getrandbits(4 * salt_len)
-    h.update(cast_bytes(passphrase, 'utf-8') + str_to_bytes(salt, 'ascii'))
+    return passphrase
 
-    return ':'.join((algorithm, salt, h.hexdigest()))
+def get_hash_password():
+   password = check_default_password()
+   if password is None:
+     password = create_passphrase()
+   return create_hash(password)
+
+def create_hash(passphrase , algorithm = 'sha1'):
+   h = hashlib.new(algorithm)
+   salt = ('%0' + str(salt_len) + 'x') % random.getrandbits(4 * salt_len)
+   h.update(cast_bytes(passphrase, 'utf-8') + str_to_bytes(salt, 'ascii'))
+   return ':'.join((algorithm, salt, h.hexdigest()))
 
 def writepassword(user_password):
     filename = os.path.expanduser("~/.futuregrid/.moocrc")    
