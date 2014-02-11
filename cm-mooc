@@ -26,6 +26,8 @@ import traceback
 import hashlib
 import random
 import getpass
+import subprocess
+import pipes
 
 ######################################################################
 # Terminal related methods
@@ -113,7 +115,7 @@ def start_vm():
 def start_stack_vm():
     global password_hash
     if password_hash is None:
-        password_hash=passwd(show_default_password())
+        password_hash=passwd()
     try:
         print "start stack vm ..."
         vms =  heat("stack-create","-f","/share/project/FG380/bigdata_mooc_temp.yaml", "-P", "KeyName=%s;PasswdHash=%s" % (keyname, password_hash), username)
@@ -206,7 +208,18 @@ def login():
     print "ssh -X -i %s %s" % (os.path.expanduser("~/%s" % keyname), "root@%s" % ip)
     os.system("ssh -X -i %s %s" % (os.path.expanduser("~/%s" % keyname), "root@%s" % ip))
 
-
+def check():
+    print "check vm ..."
+    ip = get_ip_from_stack()
+    ssh_host = "-i %s %s " % (os.path.expanduser("~/%s" % keyname) , "root@%s" %
+		ip)
+    directory = "/home/ipynb"
+    resp = subprocess.call(
+		    ['ssh', ssh_host, 'test -e ' + pipes.quote(directory)])		 
+    if resp == 0:
+       print ('VM is created successfully . You can login to it')
+    else:
+       print ('VM is not ready yet. Please check after some time')								    
 def is_account_created(msg):
     if (os.path.isfile(os.path.expanduser('~/.futuregrid/openstack_havana/fg380'))):
        print msg
@@ -240,7 +253,7 @@ except:
     sys.exit()
 
 def show_default_password():
-    filename = "/share/project/FG380/mooc/.password"
+    filename = "~/.futuregrid/.password"
     with open(filename, "r") as f:
         lines = f.readlines()
     print "PASSWORD:", lines[0].replace("\n", "")
@@ -300,13 +313,16 @@ def passwd(passphrase=None, algorithm='sha1'):
                 print('Passwords do not match.')
         else:
             raise UsageError('No matching passwords found. Giving up.')
-
+    writepassword(password)
     h = hashlib.new(algorithm)
     salt = ('%0' + str(salt_len) + 'x') % random.getrandbits(4 * salt_len)
     h.update(cast_bytes(passphrase, 'utf-8') + str_to_bytes(salt, 'ascii'))
 
     return ':'.join((algorithm, salt, h.hexdigest()))
-
+def writepassword(password):
+  file = open('~/.futuregrid/.password', 'w+')
+  file.write(password)
+  file.close()
 #def setup_bashrc():#
 #
 #    filename = "test.txt"
@@ -348,7 +364,8 @@ while cont:
                                       5) resume 
     == Login =================        6) list 
                                       7) delete
-       9) login
+       c) check
+			 9) login
        p) notebook paassword
                                    
     == Quit =================      == IP =====================
@@ -383,6 +400,8 @@ while cont:
             print "no ip found"
     elif "9" in answer:
         login()
+    elif "c" in answer:
+        check()
     elif "p" in answer:
         show_default_password()
     elif "0" in answer:
