@@ -384,7 +384,7 @@ def create_passphrase(passphrase=None, algorithm='sha1'):
 
 
 def get_hash_password():
-    password = check_default_password()
+    password = show_default_password()
     if password is None:
         password = create_passphrase()
     return create_hash(password)
