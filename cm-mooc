@@ -7,8 +7,6 @@
 # all other code based on Gregors early version of cloudmesh
 #
 #from blessings import Terminal
-print "YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY"
-
 import textwrap
 import os
 import sys
@@ -293,10 +291,6 @@ except:
 
 
 def show_default_password():
-
-
-
-  
     try :
       filename = os.path.expanduser("~/.futuregrid/.moocrc")
       with open(filename, "r") as f:
@@ -305,9 +299,6 @@ def show_default_password():
       return lines[0].replace("\n", "")
     except :
        print "Password is not set yet"
-
-def get_password_hash():
-    pass
 
 
 def encode(u, encoding=None):
@@ -346,6 +337,8 @@ def validate_password(passwd):
     result = False
     if conditions_met >= 1:
         result = True
+    else:
+        print ("Password length should be >= 6");
     return result
 
 
