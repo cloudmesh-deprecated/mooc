@@ -7,6 +7,8 @@
 # all other code based on Gregors early version of cloudmesh
 #
 #from blessings import Terminal
+print "YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY"
+
 import textwrap
 import os
 import sys
@@ -288,16 +290,21 @@ except:
     sys.exit()
 
 
+
+
 def show_default_password():
 
-    password_hash=passwd()
-        
-    filename = os.path.expanduser("~/.futuregrid/.moocrc")
-    with open(filename, "r") as f:
-        lines = f.readlines()
-    print "PASSWORD:", lines[0].replace("\n", "")
-    return lines[0].replace("\n", "")
 
+
+  
+    try :
+      filename = os.path.expanduser("~/.futuregrid/.moocrc")
+      with open(filename, "r") as f:
+          lines = f.readlines()
+      print "PASSWORD:", lines[0].replace("\n", "")
+      return lines[0].replace("\n", "")
+    except :
+       print "Password is not set yet"
 
 def get_password_hash():
     pass
