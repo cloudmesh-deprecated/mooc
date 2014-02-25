@@ -256,7 +256,7 @@ def check():
         ssh(command)
         print ('VM is created successfully . You can login to it')
     except:
-        print ('VM is not ready yet. Please check after some time')
+        print ('VM is not ready yet. Please check after some time(~5 Mins)')
 
 
 def is_account_created(msg):
@@ -291,19 +291,17 @@ except:
     sys.exit()
 
 
+
+
 def show_default_password():
-
-    password_hash=passwd()
-        
-    filename = os.path.expanduser("~/.futuregrid/.moocrc")
-    with open(filename, "r") as f:
-        lines = f.readlines()
-    print "PASSWORD:", lines[0].replace("\n", "")
-    return lines[0].replace("\n", "")
-
-
-def get_password_hash():
-    pass
+    try :
+      filename = os.path.expanduser("~/.futuregrid/.moocrc")
+      with open(filename, "r") as f:
+          lines = f.readlines()
+      print "PASSWORD:", lines[0].replace("\n", "")
+      return lines[0].replace("\n", "")
+    except :
+       print "Password is not set yet"
 
 
 def encode(u, encoding=None):
@@ -342,6 +340,8 @@ def validate_password(passwd):
     result = False
     if conditions_met >= 1:
         result = True
+    else:
+        print ("Password length should be >= 6");
     return result
 
 
