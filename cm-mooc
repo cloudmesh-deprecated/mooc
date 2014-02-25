@@ -253,7 +253,7 @@ def check():
         ssh(command)
         print ('VM is created successfully . You can login to it')
     except:
-        print ('VM is not ready yet. Please check after some time')
+        print ('VM is not ready yet. Please check after some time(~5 Mins)')
 
 
 def is_account_created(msg):
