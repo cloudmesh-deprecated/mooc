@@ -7,6 +7,9 @@
 # all other code based on Gregors early version of cloudmesh
 #
 #from blessings import Terminal
+
+print "MMMMMMMMMMMMMMMMMMM"
+
 import textwrap
 import os
 import sys
@@ -98,7 +101,7 @@ def getcharater():
     termios.tcsetattr(sys.stdin, termios.TCSADRAIN, old_settings)
     return answer
 
-
+"""
 def add_message_if_missing(filename, message):
     os.system("touch " + filename)
     file = open(filename, 'rw')
@@ -108,7 +111,7 @@ def add_message_if_missing(filename, message):
     if len(res) == 0:
         with open("test.txt", "a") as f:
             f.write(str(message) + "\n")
-
+"""
 
 def start_vm():
     vms = nova("--os-username", username, "--os-tenant-name",
