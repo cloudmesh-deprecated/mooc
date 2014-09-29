@@ -155,7 +155,7 @@ str_to_bytes = no_code
 
 def list_stack():
     print "list stack ..."
-    r = heat("stack-list", username)
+    r = heat("stack-list")
     print r
 
 if __name__ == '__main__':
