@@ -27,9 +27,6 @@ username = os.getenv("OS_USERNAME")
 tenant = os.getenv("OS_TENANT_NAME")
 keyname = "%s-key" % (username)
 
-if __name__ == '__main__':
-    main()
-
 def main():
     arguments = docopt(__doc__, version='Cloudmesh MOOC 2.0')
     print(arguments)
@@ -139,4 +136,8 @@ def get_ip_from_stack():
     ips = network.split("|")[2].strip()
     (private_ip, public_ip) = ips.replace(" ", "").split(",")
     return public_ip
+
+if __name__ == '__main__':
+    main()
+
 
