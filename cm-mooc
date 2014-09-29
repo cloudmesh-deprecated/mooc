@@ -5,6 +5,7 @@ Usage:
     cm-mooc start
     cm-mooc login
     cm-mooc stop
+    cm-mooc list
     cm-mooc notebook create
     cm-mooc notebook start
     cm-mooc notebook stop
@@ -35,11 +36,13 @@ def main():
     check_novarc_loaded()
 
     if arguments['start']:
-        start_stack_vm()
+        start_stack()
     elif arguments['stop']:
         delete_stack()
     elif arguments['login']:
         login()
+    elif arguments['list']:
+        list_stack()
     elif arguments['notebook'] and arguments['create']:
         pass
     elif arguments['notebook'] and arguments['start']:
@@ -66,7 +69,7 @@ def check_novarc_loaded():
         print "The file is located at ~/.futuregrid/openstack_havana/novarc"
         sys.exit()
 
-def start_stack_vm():
+def start_stack():
     password_hash = get_hash_password()
     rcfile = get_novarc()
     try:
@@ -149,6 +152,11 @@ def no_code(x, encoding=None):
     return x
 
 str_to_bytes = no_code
+
+def list_stack():
+    print "list stack ..."
+    r = heat("stack-list", username)
+    print r
 
 if __name__ == '__main__':
     main()
