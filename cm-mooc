@@ -140,7 +140,11 @@ def get_ip_from_stack():
     (private_ip, public_ip) = ips.replace(" ", "").split(",")
     return public_ip
 
+def cast_bytes(s, encoding=None):
+    if not isinstance(s, bytes):
+        return encode(s, encoding)
+    return s
+
 if __name__ == '__main__':
     main()
-
 
