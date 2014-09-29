@@ -19,9 +19,9 @@ Quick Start
    cd mooc-fg455
    ./cm-mooc
 
-* Select *3* to start a Cloudmesh VM
+* Select **3** to start a Cloudmesh VM
 * Wait 3-5 minutes until the configuration is completed
-* Select *l* to login to the VM
+* Select **l** to login to the VM
 * Execute `cm notebook create` on the VM
   - type your password for IPython Notebook
 * Execute `cm notebook start` on the VM
