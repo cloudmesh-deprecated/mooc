@@ -47,9 +47,9 @@ def main():
     elif arguments['notebook'] and arguments['create']:
         create_ipynb()
     elif arguments['notebook'] and arguments['start']:
-        pass
+        start_ipynb()
     elif arguments['notebook'] and arguments['stop']:
-        pass
+        stop_ipynb()
 
 def logo():
     banner = textwrap.dedent("""
@@ -116,25 +116,22 @@ def delete_stack():
     r = heat("stack-delete", username)
     print r
 
+def stop_ipynb():
+    cmd = "source ~/ENV/bin/activate;cm notebook kill"
+    _ssh(cmd)
+
+def start_ipynb():
+    cmd = "source ~/ENV/bin/activate;cm notebook start"
+    _ssh(cmd)
+
 def create_ipynb():
-    print "SSH to Cloudmesh VM ..."
-    try:
-        ip = get_ip_from_stack()
-        username = "ubuntu"
-    except:
-        print "IP address not yet assigned, or server not yet created"
-        return
-    try:
-        print "ssh -X -i %s %s" % (os.path.expanduser("~/%s" % keyname), "%s@%s"
-                                   % (username, ip))
-        os.system("ssh -X -i %s %s %s" %
-                  (os.path.expanduser("~/%s" % keyname), 
-                   "%s@%s" % (username, ip),
-                   "cm notebook create"))
-    except:
-        print "ssh failed"
+    cmd = "source ~/ENV/bin/activate;cm notebook create"
+    _ssh(cmd)
 
 def login():
+    _ssh(cmd)
+
+def _ssh(cmd=None):
     print "SSH to Cloudmesh VM ..."
     try:
         ip = get_ip_from_stack()
@@ -143,11 +140,12 @@ def login():
         print "IP address not yet assigned, or server not yet created"
         return
     try:
-        print "ssh -X -i %s %s" % (os.path.expanduser("~/%s" % keyname), "%s@%s"
+        print "ssh -X -i %s %s %s" % (os.path.expanduser("~/%s" % keyname), "%s@%s"
                                    % (username, ip))
         os.system("ssh -X -i %s %s" %
-                  (os.path.expanduser("~/%s" % keyname), "%s@%s" % (username,
-                                                                    ip)))
+                  (os.path.expanduser("~/%s" % keyname), 
+                   "%s@%s" % (username,ip),
+                   cmd or ""))
     except:
         print "ssh failed"
 
