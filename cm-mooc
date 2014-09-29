@@ -128,7 +128,9 @@ def start_stack_vm():
     try:
         print "start stack vm ..."
         vms = heat(
-            "stack-create", "-f", "/tmp/project/FG455/bigdata_mooc_fall_2014.yaml",
+            #"stack-create", "-f", "/tmp/project/FG455/bigdata_mooc_fall_2014.yaml",
+            "stack-create", "--template-url",
+            "https://raw.githubusercontent.com/cloudmesh/mooc/fg455/template/FG455/bigdata_mooc_fall_2014.yaml",
             "-P",
             ("KeyName=%s;PasswdHash=%s;RcFile=\"%s\"" % (keyname, password_hash,
                                                      rcfile)), username)
