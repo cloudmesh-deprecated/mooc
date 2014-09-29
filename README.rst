@@ -11,6 +11,7 @@ Quick Start
 * execute the following commands::
 
    module load heatclient
+   export PYTHONPATH=$PYTHONPATH:/N/soft/python/2.7/lib/python2.7/site-packages
    wget https://github.com/cloudmesh/mooc/archive/fg455.zip -O fg455.zip
    unzip fg455.zip
    cd mooc-fg455
