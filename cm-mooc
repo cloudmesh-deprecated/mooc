@@ -22,6 +22,7 @@ import hashlib
 import random
 import getpass
 from docopt import docopt
+from sh import nova
 from sh import heat
 from sh import fgrep
 
