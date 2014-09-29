@@ -239,7 +239,8 @@ def login():
         print "ssh -X -i %s %s" % (os.path.expanduser("~/%s" % keyname), "%s@%s"
                                    % (username, ip))
         os.system("ssh -X -i %s %s" %
-                  (os.path.expanduser("~/%s" % keyname), "%s@%s" % (username, ip))
+                  (os.path.expanduser("~/%s" % keyname), "%s@%s" % (username,
+                                                                    ip)))
     except:
         print "ssh failed"
 
