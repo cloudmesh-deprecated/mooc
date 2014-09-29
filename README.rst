@@ -17,21 +17,56 @@ Quick Start
   $ nova secgroup-add-rule cloudmesh tcp 5000 5000 0.0.0.0/0
   $ nova secgroup-list-rules cloudmesh
   
+**If you already have `cloudmesh` in your security group, you can skip this section.**
+
 * Execute the following commands::
 
    module load heatclient
-   export PYTHONPATH=$PYTHONPATH:/N/soft/python/2.7/lib/python2.7/site-packages
    source ~/.futuregrid/openstack_havana/novarc
-   wget https://github.com/cloudmesh/mooc/archive/fg455.zip -O fg455.zip
-   unzip fg455.zip
-   cd mooc-fg455
-   ./cm-mooc
+   source /share/project/FG455/MOOC/bin/activate
+   cm-mooc start
+   # wait approximately 5 minutes
+   cm-mooc notebook create
+   cm-mooc notebook start
+   # Acccess to your IPython Notebook via a web browser: https://[ip address]:8888
+   cm-mooc stop # Stop the VM
 
-* Select **3** to start a Cloudmesh VM
-* Wait 3-5 minutes until the configuration is completed
-* Select **l** to login to the VM
-* Execute `cm notebook create` on the VM
-  - type your password for IPython Notebook
-* Execute `cm notebook start` on the VM
-* Acccess to your IPython Notebook via a web browser: https://[ip address]:8888
- 
+Start Cloudmesh VM
+------------------
+
+``cm-mooc start``
+
+List VM
+--------
+
+``cm-mooc list``
+
+Stop Cloudmesh VM
+---------------------
+
+``cm-mooc stop``
+
+Login Cloudmesh VM
+--------------------------
+
+``cm-mooc login``
+
+Create IPython Notebook Profile on Cloudmesh VM (Set Password)
+------------------------------------------------------------------
+
+``cm-mooc notebook create``
+
+Start IPython Notebook on Cloudmesh VM
+-----------------------------------------
+
+``cm-mooc notebook start``
+
+Stop IPython Notebook on Cloudmesh VM
+-----------------------------------------
+
+``cm-mooc notebook stop``
+
+Help Message
+-------------
+
+``cm-mooc -h``
