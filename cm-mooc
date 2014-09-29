@@ -130,7 +130,7 @@ def start_stack_vm():
         vms = heat(
             "stack-create", "-f", "/tmp/project/FG455/bigdata_mooc_fall_2014.yaml",
             "-P",
-            ("\"KeyName=%s;PasswdHash=%s;RcFile='%s'\"" % (keyname, password_hash,
+            ("KeyName=%s;PasswdHash=%s;RcFile='%s'" % (keyname, password_hash,
                                                      rcfile)), username)
         print vms
     except:
@@ -231,13 +231,15 @@ def login():
     print "login vm ..."
     try:
         ip = get_ip_from_stack()
+        username = "ubuntu"
     except:
         print "IP address not yet assigned, or server not yet created"
         return
     try:
-        print "ssh -X -i %s %s" % (os.path.expanduser("~/%s" % keyname), "root@%s" % ip)
+        print "ssh -X -i %s %s" % (os.path.expanduser("~/%s" % keyname), "%s@%s"
+                                   % (username, ip))
         os.system("ssh -X -i %s %s" %
-                  (os.path.expanduser("~/%s" % keyname), "root@%s" % ip))
+                  (os.path.expanduser("~/%s" % keyname), "%s@%s" % (username, ip))
     except:
         print "ssh failed"
 
