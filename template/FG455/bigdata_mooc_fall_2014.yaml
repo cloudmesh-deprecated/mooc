@@ -97,7 +97,7 @@ resources:
             chmod 555 /tmp/ipynb-startup.sh
             sudo -u ubuntu --login /tmp/ipynb-startup.sh &>> /tmp/FG455.log
 
-            cat ~/.ssh/authorized_keys >> /home/ubuntu/.ssh/authorized_keys
+            cat /home/ec2-user/.ssh/authorized_keys >> /home/ubuntu/.ssh/authorized_keys
           params:
             $RcFile: { get_param: RcFile }
             $PasswdHash: { get_param: PasswdHash }
