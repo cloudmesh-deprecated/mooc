@@ -13,7 +13,6 @@ Quick Start
    module load heatclient
    export PYTHONPATH=$PYTHONPATH:/N/soft/python/2.7/lib/python2.7/site-packages
    source ~/.futuregrid/openstack_havana/novarc
-.. source ~/.futuregrid/openstack_havana/fg455
    wget https://github.com/cloudmesh/mooc/archive/fg455.zip -O fg455.zip
    unzip fg455.zip
    cd mooc-fg455
