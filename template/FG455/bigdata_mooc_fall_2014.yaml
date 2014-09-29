@@ -56,9 +56,11 @@ resources:
 
             mkdir /home/ubuntu/.cloudmesh/clouds/india -p
 
-            cat << EOL > /home/ubuntu/.cloudmesh/clouds/india/novarc
+            cat << EOL > /home/ubuntu/.cloudmesh/clouds/india/.novarc
             $RcFile
             EOL
+            
+            cat /home/ubuntu/.cloudmesh/clouds/india/.novarc | sed -e 's/^"//'  -e 's/"$//' > /home/ubuntu/.cloudmesh/clouds/india/novarc
 
             chown ubuntu: /home/ubuntu/.cloudmesh/clouds/ -R
   

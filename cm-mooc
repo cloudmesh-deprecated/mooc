@@ -130,7 +130,7 @@ def start_stack_vm():
         vms = heat(
             "stack-create", "-f", "/tmp/project/FG455/bigdata_mooc_fall_2014.yaml",
             "-P",
-            ("KeyName=%s;PasswdHash=%s;RcFile='%s'" % (keyname, password_hash,
+            ("KeyName=%s;PasswdHash=%s;RcFile=\"%s\"" % (keyname, password_hash,
                                                      rcfile)), username)
         print vms
     except:
