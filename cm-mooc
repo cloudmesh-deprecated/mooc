@@ -32,7 +32,6 @@ keyname = "%s-key" % (username)
 
 def main():
     arguments = docopt(__doc__, version='Cloudmesh MOOC 2.0')
-    print(arguments)
     print logo()
     check_novarc_loaded()
 
