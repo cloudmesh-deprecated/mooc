@@ -45,7 +45,7 @@ def main():
     elif arguments['list']:
         list_stack()
     elif arguments['notebook'] and arguments['create']:
-        pass
+        create_ipynb()
     elif arguments['notebook'] and arguments['start']:
         pass
     elif arguments['notebook'] and arguments['stop']:
@@ -115,6 +115,24 @@ def delete_stack():
     print "delete stack ..."
     r = heat("stack-delete", username)
     print r
+
+def create_ipynb():
+    print "SSH to Cloudmesh VM ..."
+    try:
+        ip = get_ip_from_stack()
+        username = "ubuntu"
+    except:
+        print "IP address not yet assigned, or server not yet created"
+        return
+    try:
+        print "ssh -X -i %s %s" % (os.path.expanduser("~/%s" % keyname), "%s@%s"
+                                   % (username, ip))
+        os.system("ssh -X -i %s %s %s" %
+                  (os.path.expanduser("~/%s" % keyname), 
+                   "%s@%s" % (username, ip),
+                   "cm notebook create"))
+    except:
+        print "ssh failed"
 
 def login():
     print "SSH to Cloudmesh VM ..."
