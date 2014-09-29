@@ -127,8 +127,10 @@ def start_stack_vm():
     try:
         print "start stack vm ..."
         vms = heat(
-            "stack-create", "-f", "/share/project/FG380/bigdata_mooc_temp.yaml",
-            "-P", "KeyName=%s;PasswdHash=%s" % (keyname, password_hash), username)
+            "stack-create", "-f", "/tmp/project/FG455/bigdata_mooc_fall_2014.yaml",
+            "-P",
+            "KeyName=%{keyname}s;PasswdHash=%{password_hash}s;RcFile=%{RcFile}s"
+            % vars(), username)
         print vms
     except:
         print "ERROR: stack creation failed."
