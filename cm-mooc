@@ -1,0 +1,142 @@
+"""Cloudmesh mooc for FG455 
+
+Usage:
+    cm-mooc start
+    cm-mooc login
+    cm-mooc stop
+    cm-mooc notebook create
+    cm-mooc notebook start
+    cm-mooc notebook stop
+
+Options:
+    -h --help   Show this screen.
+
+"""
+import textwrap
+import os
+import sys
+import traceback
+import hashlib
+import random
+import getpass
+from docopt import docopt
+from sh import heat
+from sh import fgrep
+
+username = os.getenv("OS_USERNAME")
+tenant = os.getenv("OS_TENANT_NAME")
+keyname = "%s-key" % (username)
+
+if __name__ == '__main__':
+    main()
+
+def main():
+    arguments = docopt(__doc__, version='Cloudmesh MOOC 2.0')
+    print(arguments)
+    print logo()
+    check_novarc_loaded()
+
+    if arguments['start']:
+        start_stack_vm()
+    elif arguments['stop']:
+        delete_stack()
+    elif arguments['login']:
+        login()
+    elif arguments['notebook'] and arguments['create']:
+        pass
+    elif arguments['notebook'] and arguments['start']:
+        pass
+    elif arguments['notebook'] and arguments['stop']:
+        pass
+
+def logo():
+    banner = textwrap.dedent("""
+                          FutureGrid - Cloud Mesh MOOC Shell
+            ------------------------------------------------------
+               ____ _                 _   __  __           _
+              / ___| | ___  _   _  __| | |  \/  | ___  ___| |__
+             | |   | |/ _ \| | | |/ _` | | |\/| |/ _ \/ __| '_ \ 
+             | |___| | (_) | |_| | (_| | | |  | |  __/\__ \ | | |
+              \____|_|\___/ \__,_|\__,_| |_|  |_|\___||___/_| |_|
+            ======================================================
+            """)
+    return banner
+
+def check_novarc_loaded():
+    if not tenant:
+        print "Please load your novarc file"
+        print "The file is located at ~/.futuregrid/openstack_havana/novarc"
+        sys.exit()
+
+def start_stack_vm():
+    password_hash = get_hash_password()
+    rcfile = get_novarc()
+    try:
+        print "start stack vm ..."
+        vms = heat(
+            "stack-create", "--template-url",
+            "https://raw.githubusercontent.com/cloudmesh/mooc/fg455/template/FG455/bigdata_mooc_fall_2014.yaml",
+            "-P",
+            ("KeyName=%s;PasswdHash=%s;RcFile=\"%s\"" % (keyname, password_hash,
+                                                     rcfile)), username)
+        print vms
+    except:
+        print "ERROR: stack creation failed."
+        print "Exception in user code:"
+        print '-' * 60
+        traceback.print_exc(file=sys.stdout)
+        print '-' * 60
+
+def get_hash_password():
+    password = "cloudmesh"
+    return create_hash(password)
+
+def create_hash(passphrase, algorithm='sha1'):
+    h = hashlib.new(algorithm)
+    salt = ('%0' + str(salt_len) + 'x') % random.getrandbits(4 * salt_len)
+    h.update(cast_bytes(passphrase, 'utf-8') + str_to_bytes(salt, 'ascii'))
+    return ':'.join((algorithm, salt, h.hexdigest()))
+
+def get_novarc():
+    try:
+        filename = os.path.expanduser('~/.futuregrid/openstack_havana/novarc')
+        with open(filename, "r") as f:
+          contents = f.read()
+        return contents
+    except:
+        print "Can't read rc file from your openstack"
+        return None
+ 
+def delete_stack():
+    print "delete stack ..."
+    r = heat("stack-delete", username)
+    print r
+
+def login():
+    print "SSH to Cloudmesh VM ..."
+    try:
+        ip = get_ip_from_stack()
+        username = "ubuntu"
+    except:
+        print "IP address not yet assigned, or server not yet created"
+        return
+    try:
+        print "ssh -X -i %s %s" % (os.path.expanduser("~/%s" % keyname), "%s@%s"
+                                   % (username, ip))
+        os.system("ssh -X -i %s %s" %
+                  (os.path.expanduser("~/%s" % keyname), "%s@%s" % (username,
+                                                                    ip)))
+    except:
+        print "ssh failed"
+
+def get_ip_from_stack():
+    r = fgrep(heat("resource-show", username, "server"),
+              "physical_resource_id")
+    vms = r.split("\n")
+    physical_resource_id = vms[0].split("|")[2].strip()
+    r = nova("show", physical_resource_id)
+    network = fgrep(r, "private network")
+    ips = network.split("|")[2].strip()
+    (private_ip, public_ip) = ips.replace(" ", "").split(",")
+    return public_ip
+
