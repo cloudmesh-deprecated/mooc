@@ -124,13 +124,14 @@ def start_stack_vm():
     #global password_hash
     # if password_hash is None:
     password_hash = get_hash_password()
+    rcfile = get_novarc()
     try:
         print "start stack vm ..."
         vms = heat(
             "stack-create", "-f", "/tmp/project/FG455/bigdata_mooc_fall_2014.yaml",
             "-P",
-            ("KeyName=%(keyname)s;PasswdHash=%(password_hash)s;RcFile=%(RcFile)s"
-            % vars()), username)
+            ("KeyName=%s;PasswdHash=%s;RcFile=%s" % (keyname, password_hash,
+                                                     rcfile)), username)
         print vms
     except:
         print "ERROR: stack creation failed."
@@ -293,8 +294,16 @@ except:
     sys.exit()
 
 
-
-
+def get_novarc():
+    try:
+        filename = os.path.expanduser('~/.futuregrid/openstack_havana/novarc')
+        with open(filename, "r") as f:
+          contents = f.read()
+        return contents
+    except:
+        print "Can't read rc file from your openstack"
+        return None
+ 
 def show_default_password():
     try :
       filename = os.path.expanduser("~/.futuregrid/.moocrc")
