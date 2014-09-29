@@ -1,0 +1,98 @@
+heat_template_version: 2014-09-28
+
+description: Deploy big data MOOC Cloudmesh with IPython notebook I590
+
+parameters:
+  KeyName:
+    type: string
+    description: Key name for logging in to instance
+  PasswdHash:
+    type: string
+    description: Hash password
+  RcFile:
+    type: string
+    description: novarc file
+
+resources:
+
+  floating_ip:
+    type: AWS::EC2::EIP
+    properties:
+      InstanceId: { get_resource: server }
+
+  server:
+    type: OS::Nova::Server
+    properties:
+      key_name: { get_param: KeyName }
+      image: "cloudmesh/ubuntu-14.04"
+      flavor: "m1.large"
+      security_groups: [ "default" , "cloudmesh" ]
+      user_data:
+        str_replace:
+          template: |
+            #!/bin/sh
+            yum -y install git
+
+            mkdir -p /var
+            mkdir -p /etc/chef
+
+            cd ~ && git clone https://github.com/cloudmesh/chef.git
+            ln -s ~/chef/cookbooks /var/chef/cookbooks
+            ln -s ~/chef/roles /var/chef/roles
+
+            cat << EOL > /etc/chef/solo.rb
+            log_location       STDOUT
+            file_cache_path    "/var/chef"
+            cookbook_path      [ "/var/chef/cookbooks" ]
+            role_path          [ "/var/chef/roles" ]
+            Mixlib::Log::Formatter.show_time = true
+            EOL
+
+            cat << EOL > /etc/chef/run_list.json
+            { "run_list": ["role[bigdata_mooc]"], "ipython": { "notebook_password": $PasswdHash } }
+            EOL
+
+            chef-solo -j /etc/chef/run_list.json
+
+            mkdir /home/ubuntu/.cloudmesh/clouds/india -p
+
+            cat << EOL > /home/ubuntu/.cloudmesh/clouds/india/novarc
+            $RcFile
+            EOL
+
+            chown ubuntu: /home/ubuntu/.cloudmesh/clouds/ -R
+  
+            cat << EOL > /tmp/activate-after-vm-creation.sh
+            . /home/ubuntu/ENV/bin/activate
+            cd /home/ubuntu/cloudmesh
+            which python >> /tmp/which-python
+            /home/ubuntu/cloudmesh/bin/fix-india-routing.py
+            cm-iu user create
+            fab mongo.stop
+            rm -rf /home/ubuntu/.cloudmesh/mongodb
+            fab mongo.boot
+            fab user.mongo:cloudmesh
+            fab mongo.simple
+            fab india.configure
+            git pull
+            fab build.fast
+            fab server.start
+            EOL
+
+            chmod 555 /tmp/activate-after-vm-creation.sh
+            sudo -u ubuntu --login /tmp/activate-after-vm-creation.sh &>> /tmp/FG455.log
+
+            cd /home/ubuntu/
+            git clone https://github.com/cloudmesh/introduction_to_cloud_computing.git
+            git clone https://github.com/cglmoocs/IPythonFiles
+            mkdir ipynb
+            cd ipynb
+            ln -s /home/ubuntu/introduction_to_cloud_computing/docs/source/cloudmesh .
+            ln -s /home/ubuntu/IPythonFiles ./fg455
+            . /home/ubuntu/ENV/bin/activate
+            ipython notebook --ip=0.0.0.0 --notebook-dir=/home/ubuntu/ipynb --no-browser &
+
+            cat .ssh/authorized_keys >> /home/ubuntu/.ssh/authorized_keys
+          params:
+            $RcFile: { get_param: RcFile }
+            $PasswdHash: { get_param: PasswdHash }
