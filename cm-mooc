@@ -7,9 +7,6 @@
 # all other code based on Gregors early version of cloudmesh
 #
 #from blessings import Terminal
-
-print "MMMMMMMMMMMMMMMMMMM"
-
 import textwrap
 import os
 import sys
