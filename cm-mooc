@@ -449,7 +449,7 @@ def writepassword(user_password):
 cont = True
 while cont:
     print
-    print """Cloudmesh MOOC FG380 Menu"""
+    print """Cloudmesh MOOC FG455 Menu"""
     print 70 * '-'
     print "user  : %s" % (username)
     print "tenant: %s" % (tenant)

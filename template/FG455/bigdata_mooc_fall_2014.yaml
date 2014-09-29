@@ -24,8 +24,8 @@ resources:
     type: OS::Nova::Server
     properties:
       key_name: { get_param: KeyName }
-      image: "cloudmesh/ubuntu-14.04"
-      flavor: "m1.large"
+      image: "cloudmesh/fg455"
+      flavor: "m1.small"
       security_groups: [ "default" , "cloudmesh" ]
       user_data:
         str_replace:
@@ -82,6 +82,7 @@ resources:
             chmod 555 /tmp/activate-after-vm-creation.sh
             sudo -u ubuntu --login /tmp/activate-after-vm-creation.sh &>> /tmp/FG455.log
 
+            cat << EOL > /tmp/ipynb-startup.sh
             cd /home/ubuntu/
             git clone https://github.com/cloudmesh/introduction_to_cloud_computing.git
             git clone https://github.com/cglmoocs/IPythonFiles
@@ -91,8 +92,12 @@ resources:
             ln -s /home/ubuntu/IPythonFiles ./fg455
             . /home/ubuntu/ENV/bin/activate
             ipython notebook --ip=0.0.0.0 --notebook-dir=/home/ubuntu/ipynb --no-browser &
+            EOL
+            
+            chmod 555 /tmp/ipynb-startup.sh
+            sudo -u ubuntu --login /tmp/ipynb-startup.sh &>> /tmp/FG455.log
 
-            cat .ssh/authorized_keys >> /home/ubuntu/.ssh/authorized_keys
+            cat ~/.ssh/authorized_keys >> /home/ubuntu/.ssh/authorized_keys
           params:
             $RcFile: { get_param: RcFile }
             $PasswdHash: { get_param: PasswdHash }
