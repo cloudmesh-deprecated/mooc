@@ -136,7 +136,7 @@ def stop_ipynb():
     _ssh(cmd, private=True)
 
 def start_ipynb():
-    cmd = "source ~/ENV/bin/activate;cm notebook start"
+    cmd = "source ~/ENV/bin/activate;cm notebook start &"
     _ssh(cmd, private=True)
 
     print '-' * 60
