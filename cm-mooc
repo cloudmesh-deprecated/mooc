@@ -17,6 +17,7 @@ Options:
 import textwrap
 import os
 import sys
+import time
 import traceback
 import hashlib
 import random
@@ -85,6 +86,7 @@ def start_stack():
         print '-' * 60
         print "Cloudmesh started! Wait approximately 5 minutes until it is"
         print "ready."
+        time.sleep(5)
         ip = get_ip_from_stack()
         print 
         print "http://%s:5000/ is your Cloudmesh Web Site." % ip
@@ -155,7 +157,7 @@ def _ssh(cmd=None):
         print "IP address not yet assigned, or server not yet created"
         return
     try:
-        print "ssh -X -i %s %s %s" % (os.path.expanduser("~/%s" % keyname), "%s@%s"
+        print "ssh -X -i %s %s %s" % (os.path.expanduser("~/.ssh/%s" % keyname), "%s@%s"
                                    % (username, ip), cmd or "")
         os.system("ssh -X -i %s %s %s" %
                   (os.path.expanduser("~/.ssh/%s" % keyname), 
