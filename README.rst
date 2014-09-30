@@ -8,7 +8,7 @@ Documentation:
 Quick Start
 ------------
 * Login to india openstack
-* Create 'cloudmesh' secgroup to allow the access of 80, 5000, 8888 ports::
+* Create 'cloudmesh' secgroup to allow the access of 5000, 8888 ports::
 
   $ nova secgroup-create cloudmesh "cloudmesh ports 5000, 8888"
   $ nova secgroup-add-rule cloudmesh tcp 8888 8888 0.0.0.0/0
