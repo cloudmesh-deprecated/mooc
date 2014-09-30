@@ -28,7 +28,7 @@ from sh import fgrep
 
 username = os.getenv("OS_USERNAME")
 tenant = os.getenv("OS_TENANT_NAME")
-keyname = "%s-key" % (username)
+keyname = "%s-india-key" % (username)
 
 def main():
     arguments = docopt(__doc__, version='Cloudmesh MOOC 2.0')
@@ -156,9 +156,9 @@ def _ssh(cmd=None):
         return
     try:
         print "ssh -X -i %s %s %s" % (os.path.expanduser("~/%s" % keyname), "%s@%s"
-                                   % (username, ip))
-        os.system("ssh -X -i %s %s" %
-                  (os.path.expanduser("~/%s" % keyname), 
+                                   % (username, ip), cmd or "")
+        os.system("ssh -X -i %s %s %s" %
+                  (os.path.expanduser("~/.ssh/%s" % keyname), 
                    "%s@%s" % (username,ip),
                    cmd or ""))
     except:
