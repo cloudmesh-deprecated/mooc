@@ -36,7 +36,7 @@ def main():
     print logo()
     check_novarc_loaded()
 
-    if arguments['start'] and not argument['notebook']:
+    if arguments['start'] and not arguments['notebook']:
         start_stack()
     elif arguments['stop']:
         delete_stack()
