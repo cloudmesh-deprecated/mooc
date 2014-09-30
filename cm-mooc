@@ -86,7 +86,10 @@ def start_stack():
         print '-' * 60
         print "Cloudmesh started! Wait approximately 5 minutes until it is"
         print "ready."
-        time.sleep(5)
+        print "Getting the public ip ."
+        for i in range(8):
+            time.sleep(1)
+            sys.stdout.write('.')
         ip = get_ip_from_stack()
         print 
         print "http://%s:5000/ is your Cloudmesh Web Site." % ip
