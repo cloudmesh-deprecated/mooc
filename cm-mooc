@@ -165,7 +165,7 @@ def _ssh(cmd=None, private=False):
         print "ssh -X -i %s %s %s" % (os.path.expanduser("~/.ssh/%s" % keyname), "%s@%s"
                                    % (username, ip), cmd or "")
         os.system('ssh -X -i -o UserKnownHostsFile=/dev/null -o'
-                  'StrictHostKeyChecking=no %s %s %s' %
+                  ' StrictHostKeyChecking=no %s %s %s' %
                   (os.path.expanduser("~/.ssh/%s" % keyname), 
                    "%s@%s" % (username,ip),
                    cmd or ""))
