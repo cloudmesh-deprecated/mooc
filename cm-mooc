@@ -81,6 +81,15 @@ def start_stack():
             ("KeyName=%s;PasswdHash=%s;RcFile=\"%s\"" % (keyname, password_hash,
                                                      rcfile)), username)
         print vms
+
+        print '-' * 60
+        print "Cloudmesh started! Wait approximately 5 minutes until it is"
+        print "ready."
+        ip = get_ip_from_stack()
+        print 
+        print "http://%s:5000/ is your Cloudmesh Web Site." % ip
+        print '-' * 60
+
     except:
         print "ERROR: stack creation failed."
         print "Exception in user code:"
@@ -122,6 +131,13 @@ def stop_ipynb():
 def start_ipynb():
     cmd = "source ~/ENV/bin/activate;cm notebook start"
     _ssh(cmd)
+
+    print '-' * 60
+    print "IPython Notebook started!"
+    ip = get_ip_from_stack()
+    print 
+    print "https://%s:8888/ is your IPython Notebook." % ip
+    print '-' * 60
 
 def create_ipynb():
     cmd = "source ~/ENV/bin/activate;cm notebook create"
