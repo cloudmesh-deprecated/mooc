@@ -89,7 +89,9 @@ def start_stack():
         print ("Getting the public ip ."),
         for i in range(15):
             time.sleep(1)
-            print ('.'),
+            #print ('.'),
+            sys.stdout.write('.')
+            sys.stdout.flush()
         ip = get_ip_from_stack()
         print 
         print "http://%s:5000/ is your Cloudmesh Web Site." % ip
@@ -131,11 +133,11 @@ def delete_stack():
 
 def stop_ipynb():
     cmd = "source ~/ENV/bin/activate;cm notebook kill"
-    _ssh(cmd)
+    _ssh(cmd, private=True)
 
 def start_ipynb():
     cmd = "source ~/ENV/bin/activate;cm notebook start"
-    _ssh(cmd)
+    _ssh(cmd, private=True)
 
     print '-' * 60
     print "IPython Notebook started!"
@@ -146,15 +148,15 @@ def start_ipynb():
 
 def create_ipynb():
     cmd = "source ~/ENV/bin/activate;cm notebook create"
-    _ssh(cmd)
+    _ssh(cmd, private=True)
 
 def login():
     _ssh(cmd)
 
-def _ssh(cmd=None):
+def _ssh(cmd=None, private=False):
     print "SSH to Cloudmesh VM ..."
     try:
-        ip = get_ip_from_stack()
+        ip = get_ip_from_stack(private)
         username = "ubuntu"
     except:
         print "IP address not yet assigned, or server not yet created"
@@ -169,7 +171,7 @@ def _ssh(cmd=None):
     except:
         print "ssh failed"
 
-def get_ip_from_stack():
+def get_ip_from_stack(private=False):
     r = fgrep(heat("resource-show", username, "server"),
               "physical_resource_id")
     vms = r.split("\n")
@@ -178,7 +180,9 @@ def get_ip_from_stack():
     network = fgrep(r, "private network")
     ips = network.split("|")[2].strip()
     (private_ip, public_ip) = ips.replace(" ", "").split(",")
-    return public_ip
+    if not private:
+        return public_ip
+    return private_ip
 
 def cast_bytes(s, encoding=None):
     if not isinstance(s, bytes):
