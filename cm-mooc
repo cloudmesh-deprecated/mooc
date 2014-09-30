@@ -38,7 +38,7 @@ def main():
 
     if arguments['start'] and not arguments['notebook']:
         start_stack()
-    elif arguments['stop']:
+    elif arguments['stop'] and not arguments['notebook']:
         delete_stack()
     elif arguments['login']:
         login()
