@@ -162,11 +162,11 @@ def _ssh(cmd=None, private=False):
         print "IP address not yet assigned, or server not yet created"
         return
     try:
-        msg = 'ssh -X -o UserKnownHostsFile=/dev/null -o'
-              ' StrictHostKeyChecking=no -i %s %s \"%s\"' %
-              (os.path.expanduser("~/.ssh/%s" % keyname), 
-               "%s@%s" % (username,ip),
-               cmd or "")
+        msg = ('ssh -X -o UserKnownHostsFile=/dev/null -o'
+               ' StrictHostKeyChecking=no -i %s %s \"%s\"' %
+               (os.path.expanduser("~/.ssh/%s" % keyname), 
+                "%s@%s" % (username,ip),
+                cmd or ""))
         print msg
         os.system(msg)
 
