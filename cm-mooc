@@ -151,7 +151,7 @@ def create_ipynb():
     _ssh(cmd, private=True)
 
 def login():
-    _ssh(None)
+    _ssh(None, private=True)
 
 def _ssh(cmd=None, private=False):
     print "SSH to Cloudmesh VM ..."
