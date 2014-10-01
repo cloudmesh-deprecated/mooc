@@ -6,6 +6,7 @@ Usage:
     cm-mooc login
     cm-mooc delete
     cm-mooc list
+    cm-mooc info
     cm-mooc notebook create
     cm-mooc notebook start
     cm-mooc notebook stop
@@ -44,6 +45,8 @@ def main():
         login()
     elif arguments['list']:
         list_stack()
+    elif arguments['info']:
+        info()
     elif arguments['notebook'] and arguments['create']:
         create_ipynb()
     elif arguments['notebook'] and arguments['start']:
@@ -153,6 +156,11 @@ def create_ipynb():
 
 def login():
     _ssh(None, private=True)
+
+def info():
+    public_ip = get_ip_from_stack()
+    print "IPython Notebook: https://{0}:8888/".format(public_ip)
+    print "Cloudmesh Web Site: http://{0}:5000/".format(public_ip)
 
 def _ssh(cmd=None, private=False):
     print "SSH to Cloudmesh VM ..."
