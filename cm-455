@@ -187,7 +187,11 @@ def _ssh(cmd=None, private=False):
         print "ssh failed"
 
 def is_running():
-    cnt = wc(heat("resource-show", username, "server"), "-l")
+    cnt = 0
+    try:
+        cnt = wc(heat("resource-show", username, "server"), "-l")
+    except:
+        pass
     if int(cnt) > 0:
         return True
     return False
