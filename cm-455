@@ -27,6 +27,7 @@ from docopt import docopt
 from sh import nova
 from sh import heat
 from sh import fgrep
+from sh import wc
 
 username = os.getenv("OS_USERNAME")
 tenant = os.getenv("OS_TENANT_NAME")
@@ -158,9 +159,12 @@ def login():
     _ssh(None, private=True)
 
 def info():
-    public_ip = get_ip_from_stack()
-    print "IPython Notebook: https://{0}:8888/".format(public_ip)
-    print "Cloudmesh Web Site: http://{0}:5000/".format(public_ip)
+    if is_running():
+        public_ip = get_ip_from_stack()
+        print "IPython Notebook: https://{0}:8888/".format(public_ip)
+        print "Cloudmesh Web Site: http://{0}:5000/".format(public_ip)
+    else:
+        print "server is not running. Try 'cm-mooc start'"
 
 def _ssh(cmd=None, private=False):
     print "SSH to Cloudmesh VM ..."
@@ -181,6 +185,12 @@ def _ssh(cmd=None, private=False):
 
     except:
         print "ssh failed"
+
+def is_running():
+    cnt = wc(heat("resource-show", username, "server"), "-l")
+    if int(cnt) > 0:
+        return True
+    return False
 
 def get_ip_from_stack(private=False):
     r = fgrep(heat("resource-show", username, "server"),
