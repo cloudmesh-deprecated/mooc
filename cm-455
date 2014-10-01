@@ -4,7 +4,7 @@
 Usage:
     cm-455 start
     cm-455 login
-    cm-455 stop
+    cm-455 delete
     cm-455 list
     cm-455 notebook create
     cm-455 notebook start
@@ -38,7 +38,7 @@ def main():
 
     if arguments['start'] and not arguments['notebook']:
         start_stack()
-    elif arguments['stop'] and not arguments['notebook']:
+    elif arguments['delete'] and not arguments['notebook']:
         delete_stack()
     elif arguments['login']:
         login()
