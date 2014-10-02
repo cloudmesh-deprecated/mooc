@@ -146,7 +146,7 @@ def start_ipynb():
     if not is_cm_working():
         print "=" * 60
         print "The VM is not ready or your ssh key is invalid. Please try"
-        print "again later ({0}).".format(res)
+        print "again later"
         print "=" * 60
         return
 
@@ -165,7 +165,7 @@ def create_ipynb():
     if not is_cm_working():
         print "=" * 60
         print "The VM is not ready or your ssh key is invalid. Please try"
-        print "again later ({0}).".format(res)
+        print "again later"
         print "=" * 60
         return
 
@@ -176,9 +176,8 @@ def login():
     if not is_cm_working():
         print "=" * 60
         print "The VM is not ready or your ssh key is invalid. Please try"
-        print "again later ({0}).".format(res)
+        print "again later. You are still allowed to ssh to the VM."
         print "=" * 60
-        return
     res = _ssh(None, private=True)
 
 def info():
