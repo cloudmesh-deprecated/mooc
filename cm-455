@@ -163,7 +163,7 @@ def login():
     if res > 0:
         print "=" * 60
         print "The VM is not ready or your ssh key is invalid. Please try"
-        print "again later"
+        print "again later ({0})".format(res)
         print "=" * 60
 
 def info():
