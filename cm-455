@@ -28,6 +28,7 @@ from sh import nova
 from sh import heat
 from sh import fgrep
 from sh import wc
+from sh import ssh
 
 username = os.getenv("OS_USERNAME")
 tenant = os.getenv("OS_TENANT_NAME")
@@ -156,7 +157,8 @@ def create_ipynb():
     _ssh(cmd, private=True)
 
 def login():
-    _ssh(None, private=True)
+    res = _ssh(None, private=True)
+    print res
 
 def info():
     if is_running():
@@ -176,15 +178,17 @@ def _ssh(cmd=None, private=False):
         return
     try:
         msg = ('ssh -X -o UserKnownHostsFile=/dev/null -o'
-               ' StrictHostKeyChecking=no -i %s %s \"%s\"' %
+               ' StrictHostKeyChecking=no -i %s %s ' %
                (os.path.expanduser("~/.ssh/%s" % keyname), 
-                "%s@%s" % (username,ip),
-                cmd or ""))
-        print msg
-        os.system(msg)
-
+                "%s@%s" % (username,ip)))
+        print msg, cmd
+        return ssh(msg.split(), cmd)
+    except (BadHostKeyException, AuthenticationException, 
+            SSHException, socket.error) as e:
+        return e
     except:
         print "ssh failed"
+        return sys.exc_info()[0]
 
 def is_running():
     cnt = 0
