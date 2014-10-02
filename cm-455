@@ -160,7 +160,7 @@ def create_ipynb():
 
 def login():
     res = is_cm_working()
-    if res > 0:
+    if str(res).isdigit() and res > 0:
         print "=" * 60
         print "The VM is not ready or your ssh key is invalid. Please try"
         print "again later ({0}).".format(res)
@@ -197,6 +197,8 @@ def _ssh(cmd=None, private=False):
         else:
             error_code = subprocess.call(("ssh " + options).split())
             return error_code
+    except ErrorReturnCode_1:
+        return 1
     except ErrorReturnCode_255:
         print ("{0} command not found".format(cmd))
         return 255
