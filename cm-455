@@ -29,7 +29,7 @@ from sh import heat
 from sh import fgrep
 from sh import wc
 from sh import ssh
-from sh import ErrorReturnCode_255
+from sh import ErrorReturnCode_1, ErrorReturnCode_255
 import subprocess
 
 username = os.getenv("OS_USERNAME")
