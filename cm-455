@@ -169,7 +169,10 @@ def info():
         print "server is not running. Try 'cm-mooc start'"
 
 def _ssh(cmd=None, private=False):
+
     print "SSH to Cloudmesh VM ..."
+
+    cmd = cmd or ""
     try:
         ip = get_ip_from_stack(private)
         username = "ubuntu"
@@ -183,6 +186,9 @@ def _ssh(cmd=None, private=False):
                 "%s@%s" % (username,ip)))
         print msg, cmd
         return ssh(msg.split(), cmd)
+    except ErrorReturnCode_255:
+        print ("{0} command not found".format(cmd))
+        return 255
     except:
         print "ssh failed"
         return sys.exc_info()[0]
