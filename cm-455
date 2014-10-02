@@ -160,13 +160,12 @@ def create_ipynb():
 
 def login():
     res = is_cm_working()
-    print res
-    res = _ssh(None, private=True)
     if res > 0:
         print "=" * 60
         print "The VM is not ready or your ssh key is invalid. Please try"
-        print "again later ({0})".format(res)
+        print "again later ({0}).".format(res)
         print "=" * 60
+    res = _ssh(None, private=True)
 
 def info():
     if is_running():
@@ -216,9 +215,9 @@ def is_running():
     return False
 
 def is_cm_working():
-    res = _ssh('nosetests '
-         '~/cloudmesh/tests/test_cm_console_ext.py:Test.test_01_activate_cloud')
-    print res
+    cmd = ('source ~/ENV/bin/activate;nosetests'
+           ' ~/cloudmesh/tests/test_cm_console_ext.py:Test.test_01_activate_cloud')
+    return _ssh(cmd)
 
 def get_ip_from_stack(private=False):
     r = fgrep(heat("resource-show", username, "server"),
