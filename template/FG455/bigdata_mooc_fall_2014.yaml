@@ -85,6 +85,8 @@ resources:
             chmod 555 /tmp/activate-after-vm-creation.sh
             sudo -u ubuntu --login /tmp/activate-after-vm-creation.sh &>> /tmp/FG455.log
 
+            sudo -y apt-get install python-numpy python-scipy python-matplotlib python-pandas python-sympy python-nose
+            
             cat << EOL > /tmp/ipynb-startup.sh
             cd /home/ubuntu/
             git clone https://github.com/cloudmesh/introduction_to_cloud_computing.git
