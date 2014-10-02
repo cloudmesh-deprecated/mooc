@@ -234,7 +234,7 @@ def is_cm_working():
     cmd = ('source ~/ENV/bin/activate;nosetests'
            ' ~/cloudmesh/tests/test_cm_console_ext.py:Test.test_01_activate_cloud')
     res =_ssh(cmd)
-    if res.digit() and res > 0:
+    if str(res).digit() and res > 0:
         return False
     return True
 
