@@ -216,7 +216,7 @@ def is_running():
     return False
 
 def is_cm_working():
-    res = _ssh('nosetests'
+    res = _ssh('nosetests '
          '~/cloudmesh/tests/test_cm_console_ext.py:Test.test_01_activate_cloud')
     print res
 
