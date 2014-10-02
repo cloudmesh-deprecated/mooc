@@ -85,8 +85,7 @@ resources:
             chmod 555 /tmp/activate-after-vm-creation.sh
             sudo -u ubuntu --login /tmp/activate-after-vm-creation.sh &>> /tmp/FG455.log
 
-            sudo -y apt-get install python-numpy python-scipy python-matplotlib python-pandas python-sympy python-nose
-
+            sudo apt-get install -y python-numpy python-scipy python-matplotlib python-pandas python-sympy python-nose
             
             cat << EOL > /tmp/ipynb-startup.sh
             ln -sf /usr/lib/python2.7/dist-packages/ /home/ubuntu/ENV/lib/python2.7
