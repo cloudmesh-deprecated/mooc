@@ -188,9 +188,10 @@ def info():
     else:
         print "server is not running. Try 'cm-mooc start'"
 
-def _ssh(cmd=None, private=False):
+def _ssh(cmd=None, private=False, verbose=True):
 
-    print "SSH to Cloudmesh VM ..."
+    if verbose:
+        print "SSH to Cloudmesh VM ..."
 
     try:
         ip = get_ip_from_stack(private)
@@ -204,7 +205,8 @@ def _ssh(cmd=None, private=False):
                (os.path.expanduser("~/.ssh/%s" % keyname), 
                 "%s@%s" % (username,ip)))
         command_line = "ssh " + options + "\"{0}\"".format(cmd or "")
-        print command_line
+        if verbose:
+            print command_line
         if cmd:
             return ssh(options.split(), cmd)
         else:
@@ -216,7 +218,8 @@ def _ssh(cmd=None, private=False):
         print ("{0} command not found".format(cmd))
         return 255
     except:
-        print "ssh failed"
+        if verbose:
+            print "ssh failed"
         return sys.exc_info()[0]
 
 def is_running():
@@ -232,7 +235,7 @@ def is_running():
 def is_cm_working():
     cmd = ('source ~/ENV/bin/activate;nosetests'
            ' ~/cloudmesh/tests/test_cm_console_ext.py:Test.test_01_activate_cloud')
-    res =_ssh(cmd)
+    res =_ssh(cmd, verbose=False)
     if str(res).isdigit() and res > 0:
         return False
     return True
