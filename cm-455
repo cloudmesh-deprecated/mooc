@@ -37,7 +37,7 @@ tenant = os.getenv("OS_TENANT_NAME")
 keyname = "%s-india-key" % (username)
 
 def main():
-    arguments = docopt(__doc__, version='Cloudmesh MOOC 2.0')
+    arguments = docopt(__doc__, version='Cloudmesh MOOC 2.1')
     print logo()
     check_novarc_loaded()
 
