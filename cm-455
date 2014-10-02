@@ -93,7 +93,7 @@ def start_stack():
         print '-' * 60
         print "Cloudmesh started! Wait approximately 5 minutes until it is"
         print "ready."
-        print ("Getting the public ip ."),
+        print ("Getting the public ip address."),
         for i in range(15):
             time.sleep(1)
             #print ('.'),
