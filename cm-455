@@ -29,6 +29,7 @@ from sh import heat
 from sh import fgrep
 from sh import wc
 from sh import ssh
+from sh import ErrorReturnCode_255
 
 username = os.getenv("OS_USERNAME")
 tenant = os.getenv("OS_TENANT_NAME")
@@ -172,7 +173,6 @@ def _ssh(cmd=None, private=False):
 
     print "SSH to Cloudmesh VM ..."
 
-    cmd = cmd or ""
     try:
         ip = get_ip_from_stack(private)
         username = "ubuntu"
@@ -180,12 +180,16 @@ def _ssh(cmd=None, private=False):
         print "IP address not yet assigned, or server not yet created"
         return
     try:
-        msg = ('ssh -X -o UserKnownHostsFile=/dev/null -o'
+        options = ('-X -o UserKnownHostsFile=/dev/null -o'
                ' StrictHostKeyChecking=no -i %s %s ' %
                (os.path.expanduser("~/.ssh/%s" % keyname), 
                 "%s@%s" % (username,ip)))
-        print msg, cmd
-        return ssh(msg.split(), cmd)
+        command_line = "ssh " + options + "\"{0}.\"".format(cmd)
+        print command_line
+        if cmd:
+            return ssh(options.split(), cmd)
+        else:
+            os.system(command_line)
     except ErrorReturnCode_255:
         print ("{0} command not found".format(cmd))
         return 255
