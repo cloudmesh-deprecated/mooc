@@ -184,7 +184,7 @@ def _ssh(cmd=None, private=False):
                ' StrictHostKeyChecking=no -i %s %s ' %
                (os.path.expanduser("~/.ssh/%s" % keyname), 
                 "%s@%s" % (username,ip)))
-        command_line = "ssh " + options + "\"{0}.\"".format(cmd)
+        command_line = "ssh " + options + "\"{0}\"".format(cmd or "")
         print command_line
         if cmd:
             return ssh(options.split(), cmd)
