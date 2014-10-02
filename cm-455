@@ -161,7 +161,10 @@ def create_ipynb():
 def login():
     res = _ssh(None, private=True)
     if res > 0:
-        print "The VM is not ready or your ssh key is invalid."
+        print "=" * 60
+        print "The VM is not ready or your ssh key is invalid. Please try" + \
+                " again later"
+        print "=" * 60
 
 def info():
     if is_running():

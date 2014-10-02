@@ -1,4 +1,3 @@
 sh
-python-heatclient
-python-novaclient
-extras
+docopt
+passlib
