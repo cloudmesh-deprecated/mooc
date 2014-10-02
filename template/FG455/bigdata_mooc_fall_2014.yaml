@@ -86,8 +86,10 @@ resources:
             sudo -u ubuntu --login /tmp/activate-after-vm-creation.sh &>> /tmp/FG455.log
 
             sudo -y apt-get install python-numpy python-scipy python-matplotlib python-pandas python-sympy python-nose
+
             
             cat << EOL > /tmp/ipynb-startup.sh
+            ln -sf /usr/lib/python2.7/dist-packages/ /home/ubuntu/ENV/lib/python2.7
             cd /home/ubuntu/
             git clone https://github.com/cloudmesh/introduction_to_cloud_computing.git
             git clone https://github.com/cglmoocs/IPythonFiles
