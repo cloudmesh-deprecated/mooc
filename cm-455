@@ -30,6 +30,7 @@ from sh import fgrep
 from sh import wc
 from sh import ssh
 from sh import ErrorReturnCode_255
+import subprocess
 
 username = os.getenv("OS_USERNAME")
 tenant = os.getenv("OS_TENANT_NAME")
@@ -189,7 +190,8 @@ def _ssh(cmd=None, private=False):
         if cmd:
             return ssh(options.split(), cmd)
         else:
-            os.system(command_line)
+            error_code = subprocess.call(("ssh " + options).split())
+            return error_code
     except ErrorReturnCode_255:
         print ("{0} command not found".format(cmd))
         return 255
