@@ -183,9 +183,6 @@ def _ssh(cmd=None, private=False):
                 "%s@%s" % (username,ip)))
         print msg, cmd
         return ssh(msg.split(), cmd)
-    except (BadHostKeyException, AuthenticationException, 
-            SSHException, socket.error) as e:
-        return e
     except:
         print "ssh failed"
         return sys.exc_info()[0]
