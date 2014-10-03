@@ -24,7 +24,7 @@ resources:
     type: OS::Nova::Server
     properties:
       key_name: { get_param: KeyName }
-      image: "cloudmesh/fg455"
+      image: "cloudmesh/ipynb-n-java"
       flavor: "m1.small"
       security_groups: [ "default" , "cloudmesh" ]
       user_data:
@@ -85,8 +85,6 @@ resources:
             chmod 555 /tmp/activate-after-vm-creation.sh
             sudo -u ubuntu --login /tmp/activate-after-vm-creation.sh &>> /tmp/FG455.log
 
-            sudo apt-get install -y python-numpy python-scipy python-matplotlib python-pandas python-sympy python-nose
-            
             cat << EOL > /tmp/ipynb-startup.sh
             ln -sf /usr/lib/python2.7/dist-packages/ /home/ubuntu/ENV/lib/python2.7
             cd /home/ubuntu/
