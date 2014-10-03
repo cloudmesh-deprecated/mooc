@@ -211,7 +211,7 @@ def _ssh(cmd=None, private=False, verbose=True):
             print command_line
         if cmd:
             #return ssh(options.split(), cmd)
-            return subprocess.call(command_line.split())
+            return subprocess.call(("ssh " + options).split() + [cmd])
         else:
             error_code = subprocess.call(("ssh " + options).split())
             return error_code
