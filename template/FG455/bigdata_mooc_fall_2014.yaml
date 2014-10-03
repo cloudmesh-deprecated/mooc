@@ -91,6 +91,7 @@ resources:
             git clone https://github.com/cloudmesh/introduction_to_cloud_computing.git
             git clone https://github.com/cglmoocs/IPythonFiles
             git clone https://github.com/cglmoocs/JavaFiles
+            git clone https://github.com/cglmoocs/Dependencies
             mkdir notebook
             cd notebook
             ln -s /home/ubuntu/introduction_to_cloud_computing/docs/source/cloudmesh .
