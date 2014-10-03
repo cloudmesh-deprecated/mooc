@@ -90,8 +90,8 @@ def start_stack():
                                                      rcfile)), username)
         print vms
 
-        print '-' * 60
-        print "Cloudmesh started! Wait approximately 8-10 minutes until it is"
+        print '-' * 80
+        print "Cloudmesh-IPython and Java started! Wait approximately 8-10 minutes until it is"
         print "ready."
         '''
         print ("Getting the public ip address."),
@@ -104,7 +104,7 @@ def start_stack():
         print 
         print "http://%s:5000/ is your Cloudmesh Web Site." % ip
         '''
-        print '-' * 60
+        print '-' * 80
 
     except:
         print "ERROR: stack creation failed."
