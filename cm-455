@@ -203,9 +203,14 @@ def _ssh(cmd=None, private=False, verbose=True):
         return
     try:
         options = ('-X -o UserKnownHostsFile=/dev/null -o'
+                   ' StrictHostKeyChecking=no %s ' %
+                   ("%s@%s" % (username,ip)))
+        '''
+        options = ('-X -o UserKnownHostsFile=/dev/null -o'
                ' StrictHostKeyChecking=no -i %s %s ' %
                (os.path.expanduser("~/.ssh/%s" % keyname), 
                 "%s@%s" % (username,ip)))
+        '''
         command_line = "ssh " + options + "\"{0}\"".format(cmd or "")
         if verbose:
             print command_line
