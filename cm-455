@@ -60,7 +60,7 @@ def main():
 
 def logo():
     banner = textwrap.dedent("""
-                          FutureSystems - Cloud Mesh MOOC Shell
+                    FutureSystems - Cloud Mesh MOOC Shell
             ------------------------------------------------------
                ____ _                 _   __  __           _
               / ___| | ___  _   _  __| | |  \/  | ___  ___| |__
