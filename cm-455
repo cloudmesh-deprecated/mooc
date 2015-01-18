@@ -91,8 +91,8 @@ def start_stack():
         print vms
 
         print '-' * 80
-        print "Cloudmesh-IPython and Java started! Wait approximately 8-10 minutes until it is"
-        print "ready."
+        print "Cloudmesh-IPython and Java started! Wait 8-10 minutes until it is ready"
+        print "to use."
         '''
         print ("Getting the public ip address."),
         for i in range(15):
