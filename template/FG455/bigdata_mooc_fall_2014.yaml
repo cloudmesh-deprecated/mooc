@@ -1,4 +1,4 @@
-heat_template_version: 2014-09-28
+heat_template_version: 2013-05-23
 
 description: Deploy big data MOOC Cloudmesh with IPython notebook I590
 
