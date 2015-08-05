@@ -74,7 +74,7 @@ def logo():
 def check_novarc_loaded():
     if not tenant:
         print "Please load your novarc file"
-        print "The file is located at ~/.cloudmesh/clouds/india/juno/novarc"
+        print "The file is located at ~/.cloudmesh/clouds/india/juno/openrc.sh"
         sys.exit()
 
 def start_stack():
@@ -127,7 +127,7 @@ def create_hash(passphrase, algorithm='sha1'):
 
 def get_novarc():
     try:
-        filename = os.path.expanduser('~/.cloudmesh/clouds/india/juno/novarc')
+        filename = os.path.expanduser('~/.cloudmesh/clouds/india/juno/openrc.sh')
         with open(filename, "r") as f:
           contents = f.read()
         return contents
