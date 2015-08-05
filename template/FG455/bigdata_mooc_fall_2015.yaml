@@ -33,10 +33,10 @@ resources:
         ToPort : "8888"
         CidrIp : "0.0.0.0/0"
 
-  floating_ip:
-    type: AWS::EC2::EIP
+  floatingip:
+    type: OS::Nova::FloatingIP
     properties:
-      InstanceId: { get_resource: server }
+      pool: ext-net
 
   server:
     type: OS::Nova::Server
@@ -125,3 +125,8 @@ resources:
           params:
             $RcFile: { get_param: RcFile }
             $PasswdHash: { get_param: PasswdHash }
+  association:
+    type: OS::Nova::FloatingIPAssociation
+    properties:
+      floating_ip: { get_resource: floatingip }
+      server_id: { get_resource: 'server' }
