@@ -255,7 +255,8 @@ def get_ip_from_stack(private=False):
     vms = r.split("\n")
     physical_resource_id = vms[0].split("|")[2].strip()
     r = nova("show", physical_resource_id)
-    network = fgrep(r, "private network")
+    #network = fgrep(r, "private network")
+    network = fgrep(r, "network")
     ips = network.split("|")[2].strip()
     (private_ip, public_ip) = ips.replace(" ", "").split(",")
     if not private:
