@@ -1,0 +1,282 @@
+#!/usr/bin/env python
+"""Cloudmesh mooc for FG455 
+
+Usage:
+    cm-mooc start
+    cm-mooc login
+    cm-mooc delete
+    cm-mooc list
+    cm-mooc info
+    cm-mooc notebook create
+    cm-mooc notebook start
+    cm-mooc notebook stop
+
+Options:
+    -h --help   Show this screen.
+
+"""
+import textwrap
+import os
+import sys
+import time
+import traceback
+import hashlib
+import random
+import getpass
+from docopt import docopt
+from sh import nova
+from sh import heat
+from sh import fgrep
+from sh import wc
+from sh import ssh
+from sh import ErrorReturnCode_1, ErrorReturnCode_255
+import subprocess
+
+username = os.getenv("OS_USERNAME")
+tenant = os.getenv("OS_TENANT_NAME")
+keyname = "%s-india-key" % (username)
+
+def main():
+    arguments = docopt(__doc__, version='Cloudmesh MOOC 2.1')
+    print logo()
+    check_novarc_loaded()
+
+    if arguments['start'] and not arguments['notebook']:
+        start_stack()
+    elif arguments['delete'] and not arguments['notebook']:
+        delete_stack()
+    elif arguments['login']:
+        login()
+    elif arguments['list']:
+        list_stack()
+    elif arguments['info']:
+        info()
+    elif arguments['notebook'] and arguments['create']:
+        create_ipynb()
+    elif arguments['notebook'] and arguments['start']:
+        start_ipynb()
+    elif arguments['notebook'] and arguments['stop']:
+        stop_ipynb()
+
+def logo():
+    banner = textwrap.dedent("""
+                          FutureSystems - Cloud Mesh MOOC Shell
+            ------------------------------------------------------
+               ____ _                 _   __  __           _
+              / ___| | ___  _   _  __| | |  \/  | ___  ___| |__
+             | |   | |/ _ \| | | |/ _` | | |\/| |/ _ \/ __| '_ \ 
+             | |___| | (_) | |_| | (_| | | |  | |  __/\__ \ | | |
+              \____|_|\___/ \__,_|\__,_| |_|  |_|\___||___/_| |_|
+            ======================================================
+            """)
+    return banner
+
+def check_novarc_loaded():
+    if not tenant:
+        print "Please load your novarc file"
+        print "The file is located at ~/.cloudmesh/clouds/india/juno/novarc"
+        sys.exit()
+
+def start_stack():
+    password_hash = get_hash_password()
+    rcfile = get_novarc()
+    try:
+        print "start stack vm ..."
+        vms = heat(
+            "stack-create", "--template-url",
+            "https://raw.githubusercontent.com/cloudmesh/mooc/fg455/template/FG455/bigdata_mooc_fall_2015.yaml",
+            "-P",
+            ("KeyName=%s;PasswdHash=%s;RcFile=\"%s\"" % (keyname, password_hash,
+                                                     rcfile)), username)
+        print vms
+
+        print '-' * 80
+        print "Cloudmesh-IPython and Java started! Wait approximately 8-10 minutes until it is"
+        print "ready."
+        '''
+        print ("Getting the public ip address."),
+        for i in range(15):
+            time.sleep(1)
+            #print ('.'),
+            sys.stdout.write('.')
+            sys.stdout.flush()
+        ip = get_ip_from_stack()
+        print 
+        print "http://%s:5000/ is your Cloudmesh Web Site." % ip
+        '''
+        print '-' * 80
+
+    except:
+        print "ERROR: stack creation failed."
+        print "Exception in user code:"
+        print '-' * 60
+        traceback.print_exc(file=sys.stdout)
+        print '-' * 60
+
+def get_hash_password():
+    password = "cloudmesh"
+    return create_hash(password)
+
+salt_len = 12
+
+def create_hash(passphrase, algorithm='sha1'):
+    h = hashlib.new(algorithm)
+    salt = ('%0' + str(salt_len) + 'x') % random.getrandbits(4 * salt_len)
+    h.update(cast_bytes(passphrase, 'utf-8') + str_to_bytes(salt, 'ascii'))
+    return ':'.join((algorithm, salt, h.hexdigest()))
+
+def get_novarc():
+    try:
+        filename = os.path.expanduser('~/.cloudmesh/clouds/india/juno/novarc')
+        with open(filename, "r") as f:
+          contents = f.read()
+        return contents
+    except:
+        print "Can't read rc file from your openstack"
+        return None
+ 
+def delete_stack():
+    print "delete stack ..."
+    r = heat("stack-delete", username)
+    print r
+
+def stop_ipynb():
+    cmd = "source ~/ENV/bin/activate;cm notebook kill"
+    _ssh(cmd, private=True)
+
+def start_ipynb():
+    if not is_cm_working():
+        print "=" * 60
+        print "The VM is not ready or your ssh key is invalid. Please try"
+        print "again later"
+        print "=" * 60
+        return
+
+    cmd = ('source ~/ENV/bin/activate;nohup cm notebook start > ipynb.out '
+           ' 2> ipynb.err < /dev/null &')
+    _ssh(cmd, private=True)
+
+    print '-' * 60
+    print "IPython Notebook started!"
+    ip = get_ip_from_stack()
+    print 
+    print "https://%s:8888/ is your IPython Notebook." % ip
+    print '-' * 60
+
+def create_ipynb():
+    if not is_cm_working():
+        print "=" * 60
+        print "The VM is not ready or your ssh key is invalid. Please try"
+        print "again later"
+        print "=" * 60
+        return
+
+    cmd = "source ~/ENV/bin/activate;cm notebook create"
+    _ssh(cmd, private=True)
+
+def login():
+    if not is_cm_working():
+        print "=" * 60
+        print "The VM may not be ready or your ssh key is invalid. Please try"
+        print "again later. You are still allowed to ssh to the VM."
+        print "=" * 60
+    res = _ssh(None, private=True)
+
+def info():
+    if is_running():
+        public_ip = get_ip_from_stack()
+        print "IPython Notebook: https://{0}:8888/".format(public_ip)
+        print "Cloudmesh Web Site: http://{0}:5000/".format(public_ip)
+    else:
+        print "server is not running. Try 'cm-mooc start'"
+
+def _ssh(cmd=None, private=False, verbose=True):
+
+    if verbose:
+        print "SSH to Cloudmesh VM ..."
+
+    try:
+        ip = get_ip_from_stack(private)
+        username = "ubuntu"
+    except:
+        print "IP address not yet assigned, or server not yet created"
+        return
+    try:
+        options = ('-X -o UserKnownHostsFile=/dev/null -o'
+                   ' StrictHostKeyChecking=no %s ' %
+                   ("%s@%s" % (username,ip)))
+        '''
+        options = ('-X -o UserKnownHostsFile=/dev/null -o'
+               ' StrictHostKeyChecking=no -i %s %s ' %
+               (os.path.expanduser("~/.ssh/%s" % keyname), 
+                "%s@%s" % (username,ip)))
+        '''
+        command_line = "ssh " + options + "\"{0}\"".format(cmd or "")
+        if verbose:
+            print command_line
+        if cmd:
+            #return ssh(options.split(), cmd)
+            return subprocess.call(("ssh " + options).split() + [cmd])
+        else:
+            error_code = subprocess.call(("ssh " + options).split())
+            return error_code
+    except ErrorReturnCode_1:
+        return 1
+    except ErrorReturnCode_255:
+        print ("{0} command not found".format(cmd))
+        return 255
+    except:
+        if verbose:
+            print "ssh failed"
+        return sys.exc_info()[0]
+
+def is_running():
+    cnt = 0
+    try:
+        cnt = wc(heat("resource-show", username, "server"), "-l")
+    except:
+        pass
+    if int(cnt) > 0:
+        return True
+    return False
+
+def is_cm_working():
+    return True
+    cmd = ('source ~/ENV/bin/activate;nosetests'
+           ' ~/cloudmesh/tests/test_cm_console_ext.py:Test.test_01_activate_cloud')
+    res =_ssh(cmd, private=True, verbose=False)
+    if str(res).isdigit() and res > 0:
+        return False
+    return True
+
+def get_ip_from_stack(private=False):
+    r = fgrep(heat("resource-show", username, "server"),
+              "physical_resource_id")
+    vms = r.split("\n")
+    physical_resource_id = vms[0].split("|")[2].strip()
+    r = nova("show", physical_resource_id)
+    network = fgrep(r, "private network")
+    ips = network.split("|")[2].strip()
+    (private_ip, public_ip) = ips.replace(" ", "").split(",")
+    if not private:
+        return public_ip
+    return private_ip
+
+def cast_bytes(s, encoding=None):
+    if not isinstance(s, bytes):
+        return encode(s, encoding)
+    return s
+
+def no_code(x, encoding=None):
+    return x
+
+str_to_bytes = no_code
+
+def list_stack():
+    print "list stack ..."
+    r = heat("stack-list")
+    print r
+
+if __name__ == '__main__':
+    main()
+
