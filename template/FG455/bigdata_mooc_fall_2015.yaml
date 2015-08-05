@@ -15,6 +15,24 @@ parameters:
 
 resources:
 
+  security_group:
+    type: AWS::EC2::SecurityGroup
+    properties:
+      GroupDescription: "SSL(443), Web(5000), Celery-Flower(8888)"
+      SecurityGroupIngress:
+      - IpProtocol: "tcp"
+        FromPort: "443"
+        ToPort : "443"
+        CidrIp : "0.0.0.0/0"
+      - IpProtocol: "tcp"
+        FromPort: "5000"
+        ToPort : "5000"
+        CidrIp : "0.0.0.0/0"
+      - IpProtocol: "tcp"
+        FromPort: "8888"
+        ToPort : "8888"
+        CidrIp : "0.0.0.0/0"
+
   floating_ip:
     type: AWS::EC2::EIP
     properties:
@@ -26,7 +44,9 @@ resources:
       key_name: { get_param: KeyName }
       image: "cloudmesh/ipynb-n-java"
       flavor: "m1.small"
-      security_groups: [ "default" , "cloudmesh" ]
+      security_groups: 
+        - "default" 
+        - { get_resource: security_group }
       user_data:
         str_replace:
           template: |
